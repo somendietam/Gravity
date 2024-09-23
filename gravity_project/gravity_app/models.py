@@ -16,12 +16,13 @@ class Usuario(models.Model):
 
 class Cliente(Usuario):
     direccion = models.CharField(max_length=255)
+    carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
 
-    def anadirAlCarrito(self, producto, cantidad, carrito):
+    def anadirAlCarrito(self, producto, cantidad):
         if producto.stock < cantidad:
             raise ValueError(f"No hay suficiente stock de {producto.nombre}")
         else:
-            carrito.agregar_producto(producto, cantidad)
+            self.carrito.agregar_producto(producto, cantidad)
 
 class Producto(models.Model):
     id = models.AutoField(primary_key=True) 
