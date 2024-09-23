@@ -1,4 +1,4 @@
-gravity_project/__pycache__/
-gravity_app/__pycache__/
+gravity_project/gravity_app/__pycache__/
+gravity_project/gravity_project/__pycache__/
 *.pyc
 
