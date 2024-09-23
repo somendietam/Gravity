@@ -1,2 +1,4 @@
-__pycache__/
-*.py[cod]
+gravity_project/__pycache__/
+gravity_app/__pycache__/
+*.pyc
+
