@@ -14,6 +14,27 @@ class Usuario(models.Model):
         # Lógica para autenticar el usuario
         pass
 
+class CarritoCompras(models.Model):
+    numeroProductos = models.IntegerField()
+    productos = models.ManyToManyField(Producto)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def verCarritoCompras(self):
+        return self.productos.all()
+
+    def generarOrden(self):
+        # Lógica para generar la orden
+        pass
+
+    def agregar_producto(self, producto, cantidad):
+        # Agrega el producto y actualiza el total
+        self.productos.add(producto)
+        self.numeroProductos += cantidad
+        self.total += producto.precio * cantidad
+        producto.stock -= cantidad
+        producto.save()  # Actualiza el stock del producto
+        self.save()  # Guarda el carrito actualizado
+        
 class Cliente(Usuario):
     direccion = models.CharField(max_length=255)
     carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
@@ -36,26 +57,6 @@ class Producto(models.Model):
             raise ValueError('El stock no puede ser negativo')
         super().save(*args, **kwargs)
 
-class CarritoCompras(models.Model):
-    numeroProductos = models.IntegerField()
-    productos = models.ManyToManyField(Producto)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def verCarritoCompras(self):
-        return self.productos.all()
-
-    def generarOrden(self):
-        # Lógica para generar la orden
-        pass
-
-    def agregar_producto(self, producto, cantidad):
-        # Agrega el producto y actualiza el total
-        self.productos.add(producto)
-        self.numeroProductos += cantidad
-        self.total += producto.precio * cantidad
-        producto.stock -= cantidad
-        producto.save()  # Actualiza el stock del producto
-        self.save()  # Guarda el carrito actualizado
 
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
