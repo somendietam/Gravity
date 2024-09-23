@@ -53,6 +53,19 @@ header {
     margin: 0 20px;
 }
 
+.mobile-nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding-top: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    display: flex; /* Use flex to enable vertical alignment */
+    flex-direction: column; /* Arrange items vertically */
+}
+
+.mobile-nav ul li {
+    margin: 25px 0; /* Space between items */
+    padding-top: 30px;
+}
+
 .header-content{
     text-decoration: none;
     color: #fff;
@@ -152,20 +165,51 @@ header .mobile-menu {
     display: none;
 }
 
-/* Mobile menu content (dropdown) is also hidden by default */
-header .mobile-menu-content {
-    display: none;
+/* Mobile menu styles */
+.mobile-menu-content {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background-color: #000000; /* Background color */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    z-index: 999; /* On top of other content */
+    padding: 20px; /* Add some padding */
+    overflow-y: auto; /* Scroll if content overflows */
+}
+
+/* Show mobile menu when active */
+.mobile-menu-content.active {
+    display: block;
+}
+
+/* Close button styles */
+.mobile-nav .close-button {
     position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+    bottom: 70px; /* Position at the bottom */
+    right: 40px; /* Align to the left */
+    text-decoration: none;
+    color: #ffffff; /* Close button color */
+    font-size: 20px; /* Font size for the button */
+    display: flex;
+    align-items: center;
+}
+
+/* Additional styling for the mobile menu items */
+.mobile-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav ul li {
+    margin: 15px 0; /* Space between items */
 }
 
 /* Show mobile menu icon when screen width is less than 800px */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     header .desktop-menu {
         display: none !important; /* Hide desktop menu */
     }
@@ -175,26 +219,10 @@ header .mobile-menu-content {
 }
 
 /* Hide the mobile menu icon when screen width is greater than 800px */
-@media screen and (min-width: 801px) {
+@media screen and (min-width: 901px) {
     header .mobile-menu {
         display: none !important; /* Hide mobile menu icon */
     }
-}
-
-.mobile-menu-content ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-}
-
-.mobile-menu-content ul li {
-    padding: 10px 0;
-}
-
-.mobile-menu-content ul li a {
-    color: #000;
-    text-decoration: none;
-    font-size: 18px;
 }
 
 /* Responsive grid adjustments */

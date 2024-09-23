@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gravity Col</title>
+
     {% load static %}
+    <link rel="icon" href="{% static 'gravity_app/images/Gravity_Logo_Black.png' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'gravity_app/css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'gravity_app/css/loader.css' %}">
     <link
@@ -24,6 +26,12 @@
                 const mobileMenu = document.getElementById('mobile-menu');
                 mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
                 console.log('Menu clicked');
+            });
+
+            document.getElementById('close-menu').addEventListener('click', function(event) {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+                console.log('Close menu clicked');
             });
 
         });
@@ -46,7 +54,7 @@
                 <ul class="desktop-menu">
                     <li class="dropdown">
                         <a class="header-content" href="#">
-                            <i class="iconoir-shirt"></i> <span> / Categories</span>
+                            <i class="iconoir-shirt"></i> <span> / Categorias</span>
                         </a>
                         <ul class="dropdown-content">
                             <li><a href="#">CAMISETAS</a></li>
@@ -58,24 +66,27 @@
                     <li><a class="header-content" href="#"><i class="iconoir-cart-alt"></i> <span> / Tu carrito (0)</span></a></li>
                 </ul>
                 <ul class="mobile-menu">
-                    <li><a class="header-content" href="#" id="menu-toggle"><i class="iconoir-list"></i></a></li>
+                    <li><a class="header-content" href="#" id="menu-toggle"><i class="iconoir-list"></i> / Menú</a>
                 </ul>
             </nav>
             <div class="mobile-menu-content" id="mobile-menu">
-                <ul>
-                    <li class="dropdown">
-                        <a class="header-content" href="#">
-                            <i class="iconoir-shirt"></i> <span> / Categories</span>
-                        </a>
-                        <ul class="dropdown-content">
-                            <li><a href="#">CAMISETAS</a></li>
-                            <li><a href="#">JOGGERS</a></li>
-                            <li><a href="#">ACCESORIOS</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
-                    <li><a class="header-content" href="#"><i class="iconoir-cart-alt"></i> <span> / Tu carrito (0)</span></a></li>
-                </ul>
+                <nav class="mobile-nav">
+                    <ul>
+                        <li class="dropdown">
+                            <a class="header-content" href="#">
+                                <i class="iconoir-shirt"></i> <span> / Categorias</span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="#">CAMISETAS</a></li>
+                                <li><a href="#">JOGGERS</a></li>
+                                <li><a href="#">ACCESORIOS</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
+                        <li><a class="header-content" href="#"><i class="iconoir-cart-alt"></i> <span> / Tu carrito (0)</span></a></li>
+                    </ul>
+                    <a class="header-content close-button" id="close-menu" href="#"><i class="iconoir-list"></i> / Salir</a>
+                </nav>
             </div>
         </div>
     </header>
