@@ -49,7 +49,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     descripcion = models.TextField()
     stock = models.IntegerField()
-    categoria = models.OneToOneField(Categoria)
+    categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE)
 
     def verDetallesProducto(self):
         return {
@@ -95,7 +95,7 @@ class CarritoCompras(models.Model):
 class Cliente(Usuario):
     direccion = models.CharField(max_length=255)
     carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
-    pedido = models.ManyToManyField('Pedido')
+    pedido = models.ManyToManyField('Pedido', related_name='clientes')
 
     def anadirAlCarrito(self, producto, cantidad):
         if producto.stock < cantidad:
@@ -159,8 +159,8 @@ class Pedido(models.Model):
     metodoPago = models.CharField(max_length=50)
     numGuia = models.CharField(max_length=50)
     direccionEntrega = models.CharField(max_length=255)
-    detalles = models.ManyToManyField('DetallePedido')
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    detalles = models.ManyToManyField('DetallePedido', related_name='pedidos')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
     totalPagar = models.DecimalField(max_digits=10, decimal_places=2)
 
     def verPedido(self):
