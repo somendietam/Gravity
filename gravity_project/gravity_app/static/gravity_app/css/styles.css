@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+/* Base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Header */
+header {
+    font-family: "Nunito Sans", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #fff;
+}
+
+.header-right {
+    margin-right: 30px; /* Espacio borde derecho */
+}
+
+.header-right nav ul li {
+    margin-right: 15px; /* Espacio items */
+}
+
+.header-right nav ul {
+    padding-right: 20px; /* Espacio items borde derecho */
+}
+
+
+.header-left .logo {
+    width: 150px;
+}
+
+.header-right nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header-right nav ul li {
+    margin: 0 20px;
+}
+
+.header-content{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+}
+
+.header-right nav ul li img {
+    width: 25px;
+    height: 25px;
+}
+
+.header-right nav ul li i {
+    font-size: 36px;
+    color: #fff;
+}
+
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    visibility: visible;
+}
+
+.dropdown-content {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    background-color: #ffffff;
+    padding: 30px;
+    top: 100%;
+    left: 0;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.dropdown-content li {
+    padding: 10px 0;
+}
+
+.dropdown-content li a {
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* Main content styles */
+.main-content {
+    padding-top: 100px; /* To avoid being overlapped by the fixed header */
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px;
+    padding: 60px;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.item p {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+/* RESPONSIVE SHIT */
+
+/* Ensure mobile menu icon is hidden by default */
+header .mobile-menu {
+    display: none;
+}
+
+/* Mobile menu content (dropdown) is also hidden by default */
+header .mobile-menu-content {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+/* Show mobile menu icon when screen width is less than 800px */
+@media screen and (max-width: 800px) {
+    header .desktop-menu {
+        display: none !important; /* Hide desktop menu */
+    }
+    header .mobile-menu {
+        display: block !important; /* Show mobile menu icon */
+    }
+}
+
+/* Hide the mobile menu icon when screen width is greater than 800px */
+@media screen and (min-width: 801px) {
+    header .mobile-menu {
+        display: none !important; /* Hide mobile menu icon */
+    }
+}
+
+.mobile-menu-content ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.mobile-menu-content ul li {
+    padding: 10px 0;
+}
+
+.mobile-menu-content ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Responsive grid adjustments */
+@media screen and (max-width: 1600px) {
+    .item-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .item-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .item-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

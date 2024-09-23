@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensure body covers full height */
+    /* overflow: hidden;  Prevent scrolling */
+}
+
+/* Loader */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid;
+    border-color: #FFFFFF transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    
+    /* Centering the loader */
+    position: fixed; /* Fixed position */
+    top: 55%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to true center */
+}
+
+/* Fullscreen overlay */
+.loader-overlay {
+    position: fixed; /* Fixed position to cover viewport */
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: #000; /* Black background */
+    z-index: 9999; /* Ensure it’s on top */
+}
+
+.loader-logo {
+    width: 250px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    position: absolute; /* Position it relative to the loader-overlay */
+    top: 45%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to true center */
+    z-index: 10000; /* Ensure it’s on top of the loader */
+}
+
+/* Keyframes for rotation */
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
