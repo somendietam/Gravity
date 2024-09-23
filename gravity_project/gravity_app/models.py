@@ -14,6 +14,19 @@ class Usuario(models.Model):
         # Lógica para autenticar el usuario
         pass
 
+class Producto(models.Model):
+    id = models.AutoField(primary_key=True) 
+    nombre = models.CharField(max_length=100)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion = models.TextField()
+    stock = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        if self.stock < 0:
+            raise ValueError('El stock no puede ser negativo')
+        super().save(*args, **kwargs)
+
+
 class CarritoCompras(models.Model):
     numeroProductos = models.IntegerField()
     productos = models.ManyToManyField(Producto)
@@ -34,7 +47,7 @@ class CarritoCompras(models.Model):
         producto.stock -= cantidad
         producto.save()  # Actualiza el stock del producto
         self.save()  # Guarda el carrito actualizado
-        
+
 class Cliente(Usuario):
     direccion = models.CharField(max_length=255)
     carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
@@ -44,19 +57,6 @@ class Cliente(Usuario):
             raise ValueError(f"No hay suficiente stock de {producto.nombre}")
         else:
             self.carrito.agregar_producto(producto, cantidad)
-
-class Producto(models.Model):
-    id = models.AutoField(primary_key=True) 
-    nombre = models.CharField(max_length=100)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    descripcion = models.TextField()
-    stock = models.IntegerField()
-
-    def save(self, *args, **kwargs):
-        if self.stock < 0:
-            raise ValueError('El stock no puede ser negativo')
-        super().save(*args, **kwargs)
-
 
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
