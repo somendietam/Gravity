@@ -83,7 +83,7 @@
                                 </ul>
                             </li>
                             <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
-                            <li><a class="header-content" href="#"><i class="iconoir-cart-alt"></i> <span> / Tu carrito (0)</span></a></li>
+                            <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span> / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
                         </ul>
                         <a class="header-content close-button" id="close-menu" href="#"><i class="iconoir-list"></i> / Salir</a>
                     </nav>
