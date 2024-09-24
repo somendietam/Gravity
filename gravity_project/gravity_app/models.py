@@ -2,6 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
+from decimal import Decimal
 
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
@@ -44,7 +45,7 @@ class CarritoCompras(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, null=True, related_name='carrito_compra')
     numeroProductos = models.IntegerField(default=0)
     productos = models.ManyToManyField(Producto)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
     fecha_creacion = models.DateTimeField(auto_now_add=True, null=True)
 
     def verCarritoCompras(self):
@@ -129,7 +130,7 @@ class Pedido(models.Model):
     direccionEntrega = models.CharField(max_length=255)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
     productos = models.ManyToManyField(Producto, through='PedidoProducto')  # Relación con productos
-    totalPagar = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    totalPagar = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
 
     def verPedido(self):
         return f'Pedido {self.id}: {self.metodoPago}, Total: {self.totalPagar}'
