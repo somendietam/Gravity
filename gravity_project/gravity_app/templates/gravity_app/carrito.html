@@ -1,0 +1,17 @@
+{% extends 'gravity_app/base.html' %}
+{% load static %}
+{% block title %}Tu Carrito{% endblock %}
+
+{% block content %}
+<h1>Tu Carrito</h1>
+{% if carrito.productos.count > 0 %}
+    <ul>
+        {% for producto in carrito.productos.all %}
+        <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total: ${{ carrito.total }}</p>
+{% else %}
+    <p>No hay productos en tu carrito.</p>
+{% endif %}
+{% endblock %}

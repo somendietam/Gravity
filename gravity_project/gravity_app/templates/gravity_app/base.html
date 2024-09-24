@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gravity Col{% endblock %}</title>
+
+    <link rel="icon" href="{% static 'gravity_app/images/Gravity_Logo_Black.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'gravity_app/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'gravity_app/css/loader.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.querySelector('.loader-overlay').style.display = 'none';
+            }, 1000);
+
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.getElementById('close-menu').addEventListener('click', function(event) {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="loader-overlay">
+        <div class="loader"></div>
+        <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="loader-logo">
+    </div>
+
+    <header>
+        <div class="header-left">
+            <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="logo">
+        </div>
+        <div class="header-right">
+            <nav>
+                <ul class="desktop-menu">
+                    <li class="dropdown">
+                        <a class="header-content" href="#">
+                            <i class="iconoir-shirt"></i> <span> / Categorias</span>
+                        </a>
+                        <ul class="dropdown-content">
+                            <li><a href="#">CAMISETAS</a></li>
+                            <li><a href="#">JOGGERS</a></li>
+                            <li><a href="#">ACCESORIOS</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
+                    <li><a class="header-content" href="#"><i class="iconoir-cart-alt"></i> <span> / Tu carrito (0)</span></a></li>
+                </ul>
+                <ul class="mobile-menu">
+                    <li><a class="header-content" href="#" id="menu-toggle"><i class="iconoir-list"></i> / Menú</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-content" id="mobile-menu">
+                <nav class="mobile-nav">
+                    <ul>
+                        <li class="dropdown">
+                            <a class="header-content" href="#">
+                                <i class="iconoir-shirt"></i> <span> / Categorias</span>
+                            </a>
+                            <ul class="dropdown-content">
+                                <li><a href="#">CAMISETAS</a></li>
+                                <li><a href="#">JOGGERS</a></li>
+                                <li><a href="#">ACCESORIOS</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
+                        <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span> / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
+                    </ul>
+                    <a class="header-content close-button" id="close-menu" href="#"><i class="iconoir-list"></i> / Salir</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

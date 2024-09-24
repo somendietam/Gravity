@@ -6,8 +6,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+@login_required
 def index(request):
-    context = {}
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos
+    }
     return render(request, 'gravity_app/index.html', context)
 
 def register(request):
@@ -49,3 +53,15 @@ def user_logout(request):
 def admin_panel(request):
     productos = Producto.objects.all()
     return render(request, "gravity_app/admin_panel.html", {"productos": productos})
+
+@login_required
+def agregar_al_carrito(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    cliente = Cliente.objects.get(user=request.user)
+    cliente.anadirAlCarrito(producto, 1)
+    return redirect('index')
+
+@login_required
+def ver_carrito(request):
+    cliente = Cliente.objects.get(user=request.user)
+    return render(request, 'gravity_app/carrito.html', {'carrito': cliente.carrito})

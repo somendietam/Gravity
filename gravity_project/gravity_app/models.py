@@ -39,9 +39,11 @@ class Producto(models.Model):
 
 
 class CarritoCompras(models.Model):
-    numeroProductos = models.IntegerField()
+    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, null=True, related_name='carrito_compra')
+    numeroProductos = models.IntegerField(default=0)
     productos = models.ManyToManyField(Producto)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    fecha_creacion = models.DateTimeField(auto_now_add=True, null=True)
 
     def verCarritoCompras(self):
         return self.productos.all()
@@ -66,7 +68,7 @@ class CarritoCompras(models.Model):
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=255)
-    carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
+    carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True, related_name='cliente_compra')
     pedido = models.ManyToManyField('Pedido', related_name='clientes')
 
     def anadirAlCarrito(self, producto, cantidad):
@@ -103,19 +105,11 @@ class Cliente(models.Model):
         )
         pedido.save()
 
-        # Crear detalles del pedido
+        # Crear detalles del pedido a través de PedidoProducto
         for producto in self.carrito.productos.all():
             cantidad = self.carrito.productos.filter(id=producto.id).count()
-            detalle = DetallePedido(
-                pedido=pedido,
-                item=producto.nombre,
-                cantidad=cantidad,
-                total=producto.precio * cantidad
-            )
-            detalle.save()
-
-        # Llamar al método pagar del pedido
-        pedido.pagar()
+            total = producto.precio * cantidad
+            PedidoProducto.objects.create(pedido=pedido, producto=producto, cantidad=cantidad, total=total)
 
         # Vaciar el carrito
         self.carrito.productos.clear()
@@ -129,23 +123,20 @@ class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
     fecha = models.DateField()
     metodoPago = models.CharField(max_length=50)
-    numGuia = models.CharField(max_length=50)
+    numGuia = models.CharField(max_length=50, null=True)
     direccionEntrega = models.CharField(max_length=255)
-    detalles = models.ManyToManyField('DetallePedido', related_name='pedidos')
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
-    totalPagar = models.DecimalField(max_digits=10, decimal_places=2)
+    productos = models.ManyToManyField(Producto, through='PedidoProducto')  # Relación con productos
+    totalPagar = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def verPedido(self):
-        return f'Pedido {self.id}: {self.metodoPago}'
-    
-    def pagar(self):
-        print(f"Pedido {self.id} pagado exitosamente.")
+        return f'Pedido {self.id}: {self.metodoPago}, Total: {self.totalPagar}'
 
-class DetallePedido(models.Model):
+class PedidoProducto(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    item = models.CharField(max_length=100)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def verDetallePedido(self):
-        return f'Item: {self.item}, Cantidad: {self.cantidad}, Total: {self.total}'
+    def __str__(self):
+        return f'{self.cantidad} x {self.producto.nombre}'
