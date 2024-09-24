@@ -27,6 +27,10 @@ def register(request):
         else:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
+            cliente = Cliente(user=user, direccion="") # Crear un cliente asociado al nuevo usuario
+            cliente.save()
+            carrito = CarritoCompras(cliente=cliente) # Crear un carrito y asociarlo al cliente
+            carrito.save()
             messages.success(request, "Usuario registrado exitosamente.")
             return redirect("login")
     return render(request, "gravity_app/register.html")
@@ -58,8 +62,16 @@ def admin_panel(request):
 def agregar_al_carrito(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     cliente = Cliente.objects.get(user=request.user)
-    cliente.anadirAlCarrito(producto, 1)
-    return redirect('index')
+
+    if not cliente.carrito:
+        carrito = CarritoCompras(cliente=cliente)
+        carrito.save()
+        cliente.carrito = carrito  # Asignar el carrito al cliente
+        cliente.save()
+
+    cliente.anadirAlCarrito(producto, 1)  # Agregar 1 producto al carrito
+    return redirect('index')  # Redirigir de nuevo a la página de inicio
+
 
 @login_required
 def ver_carrito(request):
