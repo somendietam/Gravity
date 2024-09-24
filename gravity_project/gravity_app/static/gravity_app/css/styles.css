@@ -66,25 +66,57 @@ header {
     padding-top: 30px;
 }
 
-.header-content{
+.header-content {
+    position: relative;
     text-decoration: none;
     color: #fff;
     font-weight: bold;
     font-size: 20px;
     text-transform: uppercase;
-
     display: flex;
     align-items: center;
+    overflow: hidden; /* Prevent overflow */
+
+    border-radius: 10px;
 }
+.header-content i {
+    font-size: 36px;
+}
+
+.header-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%; /* Adjust for desired expansion */
+    height: 300%; /* Adjust for desired expansion */
+    background-color: #fff;
+    transition: transform 0.5s ease; /* Transition for background effect */
+    border-radius: 50%; /* Make it circular */
+    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
+    z-index: 0; /* Behind text */
+}
+
+.header-content:hover::before {
+    transform: translate(-50%, -50%) scale(1); /* Scale up on hover */
+}
+
+.header-content i,
+.header-content span {
+    position: relative; /* Position relative to stack above the pseudo-element */
+    z-index: 0; /* Ensure text is above the background */
+    transition: color 0.5s ease; /* Transition for color */
+}
+
+.header-content:hover i,
+.header-content:hover span {
+    color: #000; /* Change text and icon color on hover */
+}
+
 
 .header-right nav ul li img {
     width: 25px;
     height: 25px;
-}
-
-.header-right nav ul li i {
-    font-size: 36px;
-    color: #fff;
 }
 
 
@@ -120,6 +152,10 @@ header {
     font-size: 18px;
     text-decoration: none;
     margin-top: 10px;
+}
+
+.dropdown-content li a:hover{
+    text-decoration: underline;
 }
 
 .dropdown:hover .dropdown-content {
