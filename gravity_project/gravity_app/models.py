@@ -49,7 +49,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     descripcion = models.TextField()
     stock = models.IntegerField()
-    categoria = models.OneToOneField(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     def verDetallesProducto(self):
         return {
