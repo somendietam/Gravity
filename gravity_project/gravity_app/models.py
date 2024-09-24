@@ -1,36 +1,7 @@
 import datetime
 from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
-
-class Usuario(models.Model):
-    id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
-    correo = models.EmailField(unique=True)
-    contrasena = models.CharField(max_length=100)
-
-    def registrar(self, nombre, correo, contrasena):
-        # Verificar si el correo ya existe
-        if Usuario.objects.filter(correo=correo).exists():
-            raise ValueError("El correo ya está registrado.")
-        
-        # Guardar el usuario con la contraseña encriptada
-        self.nombre = nombre
-        self.correo = correo
-        self.contrasena = make_password(contrasena)  # Encriptar la contraseña
-        self.save()
-
-    def ingresar(self, correo, contrasena):
-        # Buscar el usuario por correo
-        usuario = Usuario.objects.filter(correo=correo).first()
-        
-        if usuario is None:
-            raise ValueError("Usuario no encontrado.")
-        
-        # Verificar la contraseña
-        if not check_password(contrasena, usuario.contrasena):
-            raise ValueError("Contraseña incorrecta.")
-        
-        return usuario
 
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
@@ -92,7 +63,8 @@ class CarritoCompras(models.Model):
         producto.save()
         self.save()
     
-class Cliente(Usuario):
+class Cliente(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=255)
     carrito = models.OneToOneField(CarritoCompras, on_delete=models.CASCADE, null=True)
     pedido = models.ManyToManyField('Pedido', related_name='clientes')
