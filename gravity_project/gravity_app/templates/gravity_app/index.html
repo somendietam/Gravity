@@ -8,7 +8,11 @@
     <section class="item-grid">
         {% for producto in productos %}
         <div class="item">
-            <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% else %}
+                <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
+            {% endif %}
             <p>{{ producto.nombre }}</p>
             <p>Precio: ${{ producto.precio }}</p>
             <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">

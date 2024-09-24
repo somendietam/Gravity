@@ -31,7 +31,7 @@ class Producto(models.Model):
             'descripcion': self.descripcion,
             'stock': self.stock,
             'categoria': self.categoria.verCategoria(),  # Usar el método de Categoria
-            'imagen_url': self.imagen.url if self.imagen else None
+            'imagen': self.imagen.url if self.imagen else None
         }
 
     def save(self, *args, **kwargs):
