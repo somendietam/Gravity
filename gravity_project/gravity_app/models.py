@@ -21,6 +21,7 @@ class Producto(models.Model):
     descripcion = models.TextField()
     stock = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     def verDetallesProducto(self):
         return {
@@ -29,7 +30,8 @@ class Producto(models.Model):
             'precio': str(self.precio),  # Convertir a string si es necesario
             'descripcion': self.descripcion,
             'stock': self.stock,
-            'categoria': self.categoria.verCategoria()  # Usar el método de Categoria
+            'categoria': self.categoria.verCategoria(),  # Usar el método de Categoria
+            'imagen_url': self.imagen.url if self.imagen else None
         }
 
     def save(self, *args, **kwargs):

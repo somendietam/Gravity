@@ -82,8 +82,10 @@
         </div>
     </header>
 
-    <main class="main-content">
-        {% block content %}{% endblock %}
-    </main>
+    {% block content %}
+        <main class="main-content">
+            BASE HTML
+        </main>
+    {% endblock %}
 </body>
 </html>
