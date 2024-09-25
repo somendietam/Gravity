@@ -1,47 +1,66 @@
+<!-- AUTOR: SOFIA MENDIETA --> 
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Productos</title>
-    {% load static %}
+    <title>{% block title %}Panel de Administración{% endblock %}</title>
+
+    <link rel="icon" href="{% static 'gravity_app/images/Gravity_Logo_Black.png' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'gravity_app/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Panel de Administración</h1>
 
-    <h2>Lista de Productos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Categoría</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for producto in productos %}
-            <tr>
-                <td>{{ producto.id }}</td>
-                <td>{{ producto.nombre }}</td>
-                <td>{{ producto.precio }}</td>
-                <td>{{ producto.stock }}</td>
-                <td>{{ producto.categoria.nombre }}</td>
-                <td>
-                    <a href="{% url 'editar_producto' producto.id %}">Editar</a>
-                    <a href="{% url 'eliminar_producto' producto.id %}">Eliminar</a>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4">Panel de Administración</h1>
+        </div>
+    </header>
 
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'crear_categoria' %}">Agregar nueva Categoría</a>
-    <a href="{% url 'crear_producto' %}">Agregar nuevo Producto</a>
-    <a href="{% url 'index' %}">Volver a la tienda</a>
+    <main class="container mt-4">
+        <h2 class="mb-4">Lista de Productos</h2>
+        <h2 class="mb-4">Lista de Productos</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.precio }}</td>
+                    <td>{{ producto.stock }}</td>
+                    <td>{{ producto.categoria.nombre }}</td>
+                    <td>
+                        <a href="{% url 'editar_producto' producto.id %}" class="btn btn-info btn-sm">Editar</a>
+                        <a href="{% url 'eliminar_producto' producto.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="acciones mt-3">
+            <a href="{% url 'crear_producto' %}" class="btn btn-success">Agregar nuevo Producto</a>
+            <a href="{% url 'crear_categoria' %}" class="btn btn-info">Agregar nueva Categoría</a>
+            <a href="{% url 'index' %}" class="btn btn-secondary">Volver a la tienda</a>
+        </div>
+    </main>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

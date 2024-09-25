@@ -1,7 +1,51 @@
-<h2>Crear nuevo producto</h2>
+<!-- AUTOR: SOFIA MENDIETA --> 
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Crear producto</button>
-</form>
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Crear Producto{% endblock %}</title>
+
+    <link rel="icon" href="{% static 'gravity_app/images/Gravity_Logo_Black.png' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'gravity_app/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <header class="bg-dark text-white p-3">
+        <div class="container">
+            <h1 class="h4">Panel de Administración</h1>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        <h2 class="mb-4">Crear nuevo producto</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Crear nuevo producto</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Crear producto</button>
+            </form>
+
+        </form>
+        <br>
+        <a href="{% url 'admin_panel' %}" class="btn btn-secondary">Volver al Panel</a>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
