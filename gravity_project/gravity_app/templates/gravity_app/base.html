@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,24 +13,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             //setTimeout(function() {
             //    document.querySelector('.loader-overlay').style.display = 'none';
             //}, 1000);
 
             document.querySelector('.loader-overlay').style.display = 'none';
 
-            document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('menu-toggle').addEventListener('click', function () {
                 const mobileMenu = document.getElementById('mobile-menu');
                 mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
             });
 
-            document.getElementById('close-menu').addEventListener('click', function(event) {
+            document.getElementById('close-menu').addEventListener('click', function (event) {
                 const mobileMenu = document.getElementById('mobile-menu');
                 mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
             });
 
-            document.querySelector('.search-toggle').addEventListener('click', function() {
+            document.querySelector('.search-toggle').addEventListener('click', function () {
                 var searchForm = document.getElementById('search-form-container');
                 if (searchForm.style.display === 'none' || searchForm.style.display === '') {
                     searchForm.style.display = 'block'; // Mostrar el formulario
@@ -38,26 +39,36 @@
                 }
             });
             // Ocultar el formulario de búsqueda al hacer clic en el botón de cerrar
-            document.querySelector('.close-search-form').addEventListener('click', function(event) {
+            document.querySelector('.close-search-form').addEventListener('click', function (event) {
                 event.preventDefault(); // Prevenir el envío del formulario
                 var searchForm = document.getElementById('search-form-container');
                 var closeSearch = document.querySelector('.close-search');
                 searchForm.style.display = 'none';  // Ocultar el formulario de búsqueda
                 closeSearch.style.display = 'none';  // Ocultar el botón de cerrar
             });
+
+            document.getElementById('filter-toggle').addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default anchor behavior
+                const filterMenu = document.getElementById('filter-menu');
+
+                filterMenu.classList.toggle('show');
+            });
         });
     </script>
 </head>
+
 <body>
 
     <div class="loader-overlay">
         <div class="loader"></div>
-        <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="loader-logo">
+        <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo"
+            class="loader-logo">
     </div>
 
     <header>
         <div class="header-left">
-            <a href="{% url 'index' %}"><img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="logo"></a>
+            <a href="{% url 'index' %}"><img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}"
+                    alt="Gravity Project Logo" class="logo"></a>
         </div>
         <div class="header-right">
             <nav>
@@ -67,7 +78,8 @@
                     <div id="search-form-container" class="search-form-container" style="display: none;">
                         <form method="GET" action="{% url 'buscar_productos' %}" class="search-form">
                             <span> BUSCADOR </span>
-                            <input type="text" name="q" placeholder="Joggers, Camisetas, Cargos..." class="search-input">
+                            <input type="text" name="q" placeholder="Joggers, Camisetas, Cargos..."
+                                class="search-input">
                             <button type="submit" class="search-button"><i class="iconoir-search"></i></button>
                             <button class="close-search-form"><i class="iconoir-xmark"></i></button>
                         </form>
@@ -79,11 +91,12 @@
                         </a>
                         <ul class="dropdown-content">
                             {% for categoria in categorias %}
-                                <li><a href="{% url 'buscar_productos' %}?categoria={{ categoria.nombre }}">{{ categoria.nombre }}</a></li>
+                            <li><a href="{% url 'buscar_productos' %}?categoria={{ categoria.nombre }}">
+                                {{ categoria.nombre }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    
+
                     <!-- BUSQUEDA  -->
                     <li>
                         <a class="header-content search-toggle" href="javascript:void(0);">
@@ -96,8 +109,10 @@
                         </a>
                     </li>
 
-                    <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span> / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
-                    <li><a class="header-content" href="{% url 'login' %}"><i class="iconoir-user"></i> <span></span></a></li>
+                    <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span>
+                                / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
+                    <li><a class="header-content" href="{% url 'login' %}"><i class="iconoir-user"></i>
+                            <span></span></a></li>
                 </ul>
                 <ul class="mobile-menu">
                     <li><a class="header-content" href="#" id="menu-toggle"><i class="iconoir-list"></i> / Menú</a></li>
@@ -117,20 +132,25 @@
                                 <li><a href="#">ACCESORIOS</a></li>
                             </ul>
                         </li>
-                        <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> / Busqueda</span></a></li>
-                        <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span> / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
-                        <li><a class="header-content" href="{% url 'login' %}"><i class="iconoir-user"></i> <span> / Mi cuenta</span></a></li>
+                        <li><a class="header-content" href="#"><i class="iconoir-search-engine"></i> <span> /
+                                    Busqueda</span></a></li>
+                        <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i>
+                                <span> / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
+                        <li><a class="header-content" href="{% url 'login' %}"><i class="iconoir-user"></i> <span> / Mi
+                                    cuenta</span></a></li>
                     </ul>
-                    <a class="header-content close-button" id="close-menu" href="#"><i class="iconoir-list"></i> / Salir</a>
+                    <a class="header-content close-button" id="close-menu" href="#"><i class="iconoir-list"></i> /
+                        Salir</a>
                 </nav>
             </div>
         </div>
     </header>
 
     {% block content %}
-        <main class="main-content">
-            BASE HTML
-        </main>
+    <main class="main-content">
+        BASE HTML
+    </main>
     {% endblock %}
 </body>
+
 </html>

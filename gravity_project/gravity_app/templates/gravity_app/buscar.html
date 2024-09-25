@@ -32,11 +32,21 @@
 
         <!-- Derecha de la caja -->
         <div class="box-right">
-            <a href="#"><p>Filtrar</p>
-            <i class="iconoir-filter-list" id="filter-icon"></i></a>
+            <a href="#" id="filter-toggle">
+                <p>Filtrar</p>
+                <i class="iconoir-filter-list" id="filter-icon"></i>
+            </a>
+        
+            <!-- Menu desplegable de filtros -->
+            <ul class="dropdown-content-filter" id="filter-menu" style="display: none;">
+                <li><a href="#">Precio: Menor a Mayor</a></li>
+                <li><a href="#">Precio: Mayor a Menor</a></li>
+                <li><a href="#">Más vendidos</a></li>
+            </ul>
         </div>
+
     </div>
-    
+
 
     <section class="item-grid">
         <!-- Aquí va el resto de tu código -->

@@ -518,3 +518,42 @@ h2 {
     font-size: 1rem;
     margin: 0;
 }
+
+
+/* Default state when hidden */
+.dropdown-content-filter {
+    display: block !important;
+    position: absolute;
+    background-color: #ffffff;
+    padding: 0 30px; /* Padding horizontally, initially no vertical padding */
+    top: 100%;
+    right: 0;
+    border-radius: 4px;
+    z-index: 1;
+    max-height: 0;
+    overflow: hidden; /* Hide content when collapsed */
+    transition: max-height 0.5s ease, padding 0.5s ease; /* Smooth height and padding transition */
+}
+
+/* When the dropdown is visible */
+.dropdown-content-filter.show {
+    max-height: 300px; /* Adjust this value to the max desired height */
+    padding: 30px; /* Restore vertical padding */
+}
+
+/* Dropdown items */
+.dropdown-content-filter li {
+    padding: 10px 0;
+}
+
+.dropdown-content-filter li a {
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.dropdown-content-filter li a:hover {
+    text-decoration: underline;
+}
