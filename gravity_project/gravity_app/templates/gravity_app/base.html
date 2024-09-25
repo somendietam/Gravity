@@ -38,7 +38,8 @@
                 }
             });
             // Ocultar el formulario de búsqueda al hacer clic en el botón de cerrar
-            document.querySelector('.close-search-form').addEventListener('click', function() {
+            document.querySelector('.close-search-form').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevenir el envío del formulario
                 var searchForm = document.getElementById('search-form-container');
                 var closeSearch = document.querySelector('.close-search');
                 searchForm.style.display = 'none';  // Ocultar el formulario de búsqueda
@@ -68,7 +69,7 @@
                             <span> BUSCADOR </span>
                             <input type="text" name="q" placeholder="Joggers, Camisetas, Cargos..." class="search-input">
                             <button type="submit" class="search-button"><i class="iconoir-search"></i></button>
-                            <button type="submit" class="close-search-form"><i class="iconoir-xmark"></i></button>
+                            <button class="close-search-form"><i class="iconoir-xmark"></i></button>
                         </form>
                     </div>
 
