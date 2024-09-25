@@ -1,6 +1,45 @@
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="username" placeholder="Nombre de usuario" required>
-  <input type="password" name="password" placeholder="Contraseña" required>
-  <button type="submit">Iniciar sesión</button>
-</form>
+{% extends 'gravity_app/base.html' %}
+
+{% load static %}
+{% block title %}Gravity Colombia{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+<main class="main-content-auth">
+
+  <div class="container">
+    <div class="left-column">
+      <!--<h1>GRAVITY</h1>-->
+      <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="logo">
+
+      <div class="social-buttons-container">
+        <a href="https://www.instagram.com"><i class="iconoir-instagram"></i></a>
+        <a href="https://www.facebook.com"><i class="iconoir-facebook"></i></a>
+        <a href="https://www.twitter.com"><i class="iconoir-x"></i></a>
+      </div>
+  </div>
+  <div class="right-column">
+    <h1>Iniciar sesión <i class="iconoir-user"></i></h1>
+    <form class="login-form" method="POST">
+      {% csrf_token %}
+      
+      <input type="text" name="username" placeholder="Nombre de usuario" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar sesión</button>
+      <span>¿No tienes cuenta? <a href="{% url 'register' %}">Registrate</a></span>
+    </form>
+  </div>
+  </div>
+
+  <!--
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Nombre de usuario" required>
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <button type="submit">Iniciar sesión</button>
+  </form>-->
+</main>
+{% endblock %}

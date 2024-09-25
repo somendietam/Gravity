@@ -9,6 +9,7 @@
 
     <link rel="icon" href="{% static 'gravity_app/images/Gravity_Logo_Black.png' %}" type="image/x-icon" />
     <link rel="stylesheet" href="{% static 'gravity_app/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'gravity_app/css/auth.css' %}">
     <link rel="stylesheet" href="{% static 'gravity_app/css/loader.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
 
@@ -65,6 +66,7 @@
             class="loader-logo">
     </div>
 
+    {% block header %}
     <header>
         <div class="header-left">
             <a href="{% url 'index' %}"><img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}"
@@ -145,6 +147,7 @@
             </div>
         </div>
     </header>
+    {% endblock %}
 
     {% block content %}
     <main class="main-content">

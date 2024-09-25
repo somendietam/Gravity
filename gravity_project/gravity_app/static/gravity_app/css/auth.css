@@ -1,0 +1,196 @@
+.main-content-auth {
+    background-color: #000;
+    width: 100%; /* Occupy full width */
+    height: 100vh; /* Occupy full viewport height */
+    box-sizing: border-box; /* Ensure padding and border are included in the total size */
+    font-family: "Nunito Sans", sans-serif;
+    display: flex; /* Flexbox to center the container */
+    justify-content: center; /* Horizontally center the container */
+    align-items: center; /* Vertically center the container */
+    font-weight: normal;
+}
+
+.container {
+    display: flex;
+    width: 60%;
+    height: 60%;
+    box-shadow: #999999 0px 0px 50px;
+}
+
+/* Ensures the left column content is properly centered */
+.left-column {
+    width: 50%;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    text-align: center; /* Centers text and content */
+}
+.left-column img {
+    width: 80%;
+    height: auto;
+}
+.right-column img {
+    width: 80%;
+    height: auto;
+}
+
+.right-column {
+    width: 50%;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    text-align: center; /* Centers text and content */
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.login-form span{
+    color: #000;
+}
+.login-form a{
+    text-decoration: underline;
+    color: #000;
+}
+
+.login-form input {
+    width: 80%;
+    height: 50px;
+    margin: 10px 0;
+    padding: 0 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #000000;
+    border: #000 2px solid;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: normal;
+}
+
+.login-form button {
+    width: 80%;
+    height: 50px;
+    margin: 30px 0;
+    padding: 0 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.register-form span {
+    color: #ffffff;
+}
+.register-form a{
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+.register-form input {
+    width: 80%;
+    height: 50px;
+    margin: 10px 0;
+    padding: 0 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #ffffff;
+    border: #ffffff 2px solid;
+    border-radius: 5px;
+    color: #000000;
+    font-weight: normal;
+}
+
+.register-form button {
+    width: 80%;
+    height: 50px;
+    margin: 30px 0;
+    padding: 0 20px;
+    font-size: 1em;
+    border: none;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.social-buttons-container {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.social-buttons-container a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-buttons-container-register {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.social-buttons-container-register a{
+    color: #000000;
+    text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+
+    /* Pantallas aún más pequeñas, hasta 480px */
+    .search-results-box {
+        width: 90%;
+    }
+
+    .box-right a {
+        font-size: 17px;
+    }
+
+    /* Icono del filtro */
+    #filter-icon {
+        font-size: 19px !important;
+    }
+
+    /* Ajustar los tamaños de h1 y h2 */
+    .search-results-box h1 {
+        font-size: 17px;
+    }
+
+    .search-results-box h2 {
+        font-size: 9px;
+    }
+
+    .box-right h2 {
+        font-size: 9px;
+    }
+}

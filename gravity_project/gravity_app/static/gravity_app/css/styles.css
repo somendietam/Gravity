@@ -4,7 +4,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    height: 100%;
+    font-family: "Nunito Sans", sans-serif;
     background-color: #000;
     color: #fff;
 }
@@ -25,20 +26,24 @@ header {
 }
 
 .header-right {
-    margin-right: 30px; /* Espacio borde derecho */
+    margin-right: 30px;
+    /* Espacio borde derecho */
 }
 
 .header-right nav ul li {
-    margin-right: 15px; /* Espacio items */
+    margin-right: 15px;
+    /* Espacio items */
 }
 
 .header-right nav ul {
-    padding-right: 20px; /* Espacio items borde derecho */
+    padding-right: 20px;
+    /* Espacio items borde derecho */
 }
 
-.header-left{
+.header-left {
     cursor: pointer;
 }
+
 .header-left .logo {
     width: 150px;
 }
@@ -56,15 +61,21 @@ header {
 }
 
 .mobile-nav ul {
-    list-style-type: none; /* Remove bullet points */
-    padding-top: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-    display: flex; /* Use flex to enable vertical alignment */
-    flex-direction: column; /* Arrange items vertically */
+    list-style-type: none;
+    /* Remove bullet points */
+    padding-top: 0;
+    /* Remove padding */
+    margin: 0;
+    /* Remove margin */
+    display: flex;
+    /* Use flex to enable vertical alignment */
+    flex-direction: column;
+    /* Arrange items vertically */
 }
 
 .mobile-nav ul li {
-    margin: 25px 0; /* Space between items */
+    margin: 25px 0;
+    /* Space between items */
     padding-top: 30px;
 }
 
@@ -77,10 +88,12 @@ header {
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden;
+    /* Prevent overflow */
 
     border-radius: 10px;
 }
+
 .header-content i {
     font-size: 36px;
 }
@@ -90,29 +103,40 @@ header {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 150%; /* Adjust for desired expansion */
-    height: 300%; /* Adjust for desired expansion */
+    width: 150%;
+    /* Adjust for desired expansion */
+    height: 300%;
+    /* Adjust for desired expansion */
     background-color: #fff;
-    transition: transform 0.5s ease; /* Transition for background effect */
-    border-radius: 50%; /* Make it circular */
-    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
-    z-index: 0; /* Behind text */
+    transition: transform 0.5s ease;
+    /* Transition for background effect */
+    border-radius: 50%;
+    /* Make it circular */
+    transform: translate(-50%, -50%) scale(0);
+    /* Start scaled down */
+    z-index: 0;
+    /* Behind text */
 }
 
 .header-content:hover::before {
-    transform: translate(-50%, -50%) scale(1); /* Scale up on hover */
+    transform: translate(-50%, -50%) scale(1);
+    /* Scale up on hover */
 }
 
 .header-content i,
 .header-content span {
-    position: relative; /* Position relative to stack above the pseudo-element */
-    z-index: 0; /* Ensure text is above the background */
-    transition: color 0.5s ease; /* Transition for color */
+    position: relative;
+    /* Position relative to stack above the pseudo-element */
+    z-index: 0;
+    /* Ensure text is above the background */
+    transition: color 0.5s ease;
+    /* Transition for color */
 }
 
 .header-content:hover i,
 .header-content:hover span {
-    color: #000; /* Change text and icon color on hover */
+    color: #000;
+    /* Change text and icon color on hover */
 }
 
 
@@ -156,7 +180,7 @@ header {
     margin-top: 10px;
 }
 
-.dropdown-content li a:hover{
+.dropdown-content li a:hover {
     text-decoration: underline;
 }
 
@@ -167,7 +191,8 @@ header {
 
 /* Main content styles */
 .main-content {
-    padding-top: 120px; /* To avoid being overlapped by the fixed header */
+    padding-top: 120px;
+    /* To avoid being overlapped by the fixed header */
     padding-left: 10px;
     padding-right: 10px;
     max-width: 1600px;
@@ -197,25 +222,37 @@ header {
 
 /* Centering the button */
 .button-container {
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    margin-top: 10px; /* Add some spacing above the button */
+    display: flex;
+    /* Use flexbox for centering */
+    justify-content: center;
+    /* Center horizontally */
+    margin-top: 10px;
+    /* Add some spacing above the button */
 }
 
 /* Button Styles */
 .add-to-cart-button {
-    border: 2px solid white; /* White border */
-    background-color: black; /* Black background */
-    color: rgb(255, 255, 255); /* White text */
+    border: 2px solid white;
+    /* White border */
+    background-color: black;
+    /* Black background */
+    color: rgb(255, 255, 255);
+    /* White text */
     text-transform: uppercase;
-    padding: 10px 20px; /* Adjust padding */
-    font-size: 16px; /* Font size */
+    padding: 10px 20px;
+    /* Adjust padding */
+    font-size: 16px;
+    /* Font size */
     font-weight: bold;
     border-radius: 10px;
-    cursor: pointer; /* Pointer cursor */
-    position: relative; /* Position for the pseudo-element */
-    overflow: hidden; /* Ensure overflow is hidden */
-    transition: color 0.5s ease; /* Smooth transition for color */
+    cursor: pointer;
+    /* Pointer cursor */
+    position: relative;
+    /* Position for the pseudo-element */
+    overflow: hidden;
+    /* Ensure overflow is hidden */
+    transition: color 0.5s ease;
+    /* Smooth transition for color */
 }
 
 /* Circle Animation Effect */
@@ -224,28 +261,39 @@ header {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 300%; /* Size of the circle */
-    height: 300%; /* Size of the circle */
-    background-color: white; /* Circle background color */
-    transition: transform 0.5s ease; /* Transition for background effect */
-    border-radius: 50%; /* Make it circular */
-    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
-    z-index: -1; /* Behind text */
+    width: 300%;
+    /* Size of the circle */
+    height: 300%;
+    /* Size of the circle */
+    background-color: white;
+    /* Circle background color */
+    transition: transform 0.5s ease;
+    /* Transition for background effect */
+    border-radius: 50%;
+    /* Make it circular */
+    transform: translate(-50%, -50%) scale(0);
+    /* Start scaled down */
+    z-index: -1;
+    /* Behind text */
 }
 
 .add-to-cart-button:hover::before {
-    transform: translate(-50%, -50%) scale(1); /* Scale up on hover */
+    transform: translate(-50%, -50%) scale(1);
+    /* Scale up on hover */
 }
 
 /* Text and icon style */
 .add-to-cart-button:hover {
-    color: black; /* Change text color to black on hover */
+    color: black;
+    /* Change text color to black on hover */
     background-color: white;
 }
 
 .add-to-cart-button span {
-    position: relative; /* Position relative to stack above the pseudo-element */
-    z-index: 1; /* Ensure text is above the background */
+    position: relative;
+    /* Position relative to stack above the pseudo-element */
+    z-index: 1;
+    /* Ensure text is above the background */
 }
 
 /* RESPONSIVE SHIT */
@@ -255,23 +303,29 @@ header .mobile-menu {
     display: none;
 }
 
-#menu-toggle:hover{
+#menu-toggle:hover {
     color: #000;
 }
 
 /* Mobile menu styles */
 .mobile-menu-content {
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
     position: fixed;
     top: 0;
     right: 0;
     width: 70%;
     height: 100%;
-    background-color: #000000; /* Background color */
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow effect */
-    z-index: 999; /* On top of other content */
-    padding: 20px; /* Add some padding */
-    overflow-y: auto; /* Scroll if content overflows */
+    background-color: #000000;
+    /* Background color */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    /* Shadow effect */
+    z-index: 999;
+    /* On top of other content */
+    padding: 20px;
+    /* Add some padding */
+    overflow-y: auto;
+    /* Scroll if content overflows */
 
     border-left: 2px solid #fff;
 }
@@ -284,11 +338,15 @@ header .mobile-menu {
 /* Close button styles */
 .mobile-nav .close-button {
     position: absolute;
-    bottom: 70px; /* Position at the bottom */
-    right: 40px; /* Align to the left */
+    bottom: 70px;
+    /* Position at the bottom */
+    right: 40px;
+    /* Align to the left */
     text-decoration: none;
-    color: #ffffff; /* Close button color */
-    font-size: 20px; /* Font size for the button */
+    color: #ffffff;
+    /* Close button color */
+    font-size: 20px;
+    /* Font size for the button */
     display: flex;
     align-items: center;
 }
@@ -301,24 +359,29 @@ header .mobile-menu {
 }
 
 .mobile-nav ul li {
-    margin: 15px 0; /* Space between items */
+    margin: 15px 0;
+    /* Space between items */
 }
 
 
 /* Show mobile menu icon when screen width is less than 800px */
 @media screen and (max-width: 900px) {
     header .desktop-menu {
-        display: none !important; /* Hide desktop menu */
+        display: none !important;
+        /* Hide desktop menu */
     }
+
     header .mobile-menu {
-        display: block !important; /* Show mobile menu icon */
+        display: block !important;
+        /* Show mobile menu icon */
     }
 }
 
 /* Hide the mobile menu icon when screen width is greater than 800px */
 @media screen and (min-width: 901px) {
     header .mobile-menu {
-        display: none !important; /* Hide mobile menu icon */
+        display: none !important;
+        /* Hide mobile menu icon */
     }
 }
 
@@ -347,8 +410,10 @@ header .mobile-menu {
     top: 0;
     right: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparente para que se vea sobre el contenido */
-    z-index: 10; /* Asegurarnos de que esté por encima del resto */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Semi-transparente para que se vea sobre el contenido */
+    z-index: 10;
+    /* Asegurarnos de que esté por encima del resto */
     padding: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -361,7 +426,8 @@ header .mobile-menu {
     justify-content: space-between;
     width: 100%;
 }
-.search-form span{
+
+.search-form span {
     position: relative;
     text-decoration: none;
     color: #fff;
@@ -370,7 +436,8 @@ header .mobile-menu {
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden;
+    /* Prevent overflow */
     padding-right: 20px;
 }
 
@@ -400,6 +467,7 @@ header .mobile-menu {
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
 }
+
 .search-form button:hover {
     background-color: #fff;
     color: #000;
@@ -417,7 +485,8 @@ header .mobile-menu {
     position: absolute;
     top: 0;
     right: 0;
-    width: 100%; /* Ajuste si tienes margen en tu header */
+    width: 100%;
+    /* Ajuste si tienes margen en tu header */
     height: auto;
     z-index: 999;
     background: #000;
@@ -438,6 +507,7 @@ h1 {
     font-family: "Nunito Sans", sans-serif;
     text-transform: uppercase;
 }
+
 h2 {
     text-align: center;
     font-family: "Nunito Sans", sans-serif;
@@ -447,39 +517,54 @@ h2 {
 /* Estilo buscador */
 .search-results-box {
     display: flex;
-    justify-content: space-around; /* Distribuir espacio entre elementos */
-    align-items: center; /* Centrar verticalmente */
-    background-color: #000; /* Fondo negro */
-    border-right: 2px solid white; /* Borde blanco */
+    justify-content: space-around;
+    /* Distribuir espacio entre elementos */
+    align-items: center;
+    /* Centrar verticalmente */
+    background-color: #000;
+    /* Fondo negro */
+    border-right: 2px solid white;
+    /* Borde blanco */
     border-bottom: 2px solid white;
     border-left: 2px solid white;
-    border-radius: 0px 0px 10px 10px; /* Bordes redondeados */
+    border-radius: 0px 0px 10px 10px;
+    /* Bordes redondeados */
     padding: 10px;
     margin-bottom: 20px;
-    position: relative; /* Posicion relativa para la línea */
-    max-width: 800px; /* Establece un ancho máximo para que no sea demasiado grande */
-    margin: 0 auto; /* Centrar la caja horizontalmente */
+    position: relative;
+    /* Posicion relativa para la línea */
+    max-width: 800px;
+    /* Establece un ancho máximo para que no sea demasiado grande */
+    margin: 0 auto;
+    /* Centrar la caja horizontalmente */
     width: 75%;
     min-width: 200px;
 }
 
 .box-left {
     color: white;
-    text-align: center; /* Centrar el contenido del texto */
-    flex: 1; /* Hacer que la caja izquierda ocupe el mismo espacio que la derecha */
-    padding-right: 20px; /* Espacio a la derecha de la línea */
+    text-align: center;
+    /* Centrar el contenido del texto */
+    flex: 1;
+    /* Hacer que la caja izquierda ocupe el mismo espacio que la derecha */
+    padding-right: 20px;
+    /* Espacio a la derecha de la línea */
 }
 
 .box-right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centrar el botón Filtrar */
+    justify-content: center;
+    /* Centrar el botón Filtrar */
     color: white;
-    flex: 1; /* Hacer que la caja derecha ocupe el mismo espacio que la izquierda */
-    padding-left: 20px; /* Espacio a la izquierda de la línea */
-    
+    flex: 1;
+    /* Hacer que la caja derecha ocupe el mismo espacio que la izquierda */
+    padding-left: 20px;
+    /* Espacio a la izquierda de la línea */
+
 }
+
 .box-right a {
     font-size: 24px;
     font-weight: bold;
@@ -487,11 +572,15 @@ h2 {
     font-family: "Nunito Sans", sans-serif;
     text-decoration: none;
     color: white;
-    display: flex; /* Makes the link a flex container */
-    align-items: center; /* Vertically centers the text and icon */
-    gap: 8px; /* Adds space between the text and the icon */
+    display: flex;
+    /* Makes the link a flex container */
+    align-items: center;
+    /* Vertically centers the text and icon */
+    gap: 8px;
+    /* Adds space between the text and the icon */
     height: 32px;
 }
+
 .search-results-box h2 {
     font-size: 12px;
 }
@@ -501,7 +590,8 @@ h2 {
     position: absolute;
     top: 10px;
     bottom: 10px;
-    left: 50%; /* Centrar la línea verticalmente */
+    left: 50%;
+    /* Centrar la línea verticalmente */
     width: 1px;
     background-color: white;
 }
@@ -531,20 +621,25 @@ h2 {
     display: block !important;
     position: absolute;
     background-color: #ffffff;
-    padding: 0 30px; /* Padding horizontally, initially no vertical padding */
+    padding: 0 30px;
+    /* Padding horizontally, initially no vertical padding */
     top: 100%;
     right: 0;
     border-radius: 4px;
     z-index: 1;
     max-height: 0;
-    overflow: hidden; /* Hide content when collapsed */
-    transition: max-height 0.5s ease, padding 0.5s ease; /* Smooth height and padding transition */
+    overflow: hidden;
+    /* Hide content when collapsed */
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    /* Smooth height and padding transition */
 }
 
 /* When the dropdown is visible */
 .dropdown-content-filter.show {
-    max-height: 300px; /* Adjust this value to the max desired height */
-    padding: 30px; /* Restore vertical padding */
+    max-height: 300px;
+    /* Adjust this value to the max desired height */
+    padding: 30px;
+    /* Restore vertical padding */
 }
 
 /* Dropdown items */
@@ -563,57 +658,62 @@ h2 {
 .dropdown-content-filter li a:hover {
     text-decoration: underline;
 }
+
 .selected-filter {
     font-weight: bold;
     text-decoration: underline !important;
 }
 
 
-@media (max-width: 768px) {  /* Pantallas pequeñas, hasta 768px */
+@media (max-width: 768px) {
+
+    /* Pantallas pequeñas, hasta 768px */
     .box-right a {
         font-size: 20px;
     }
-    
+
     /* Icono del filtro */
     #filter-icon {
         font-size: 22px !important;
     }
-    
+
     /* Ajustar los tamaños de h1 y h2 */
     .search-results-box h1 {
         font-size: 20px;
     }
-    
+
     .search-results-box h2 {
         font-size: 12px;
     }
-    
+
 }
 
-@media (max-width: 480px) {  /* Pantallas aún más pequeñas, hasta 480px */
+@media (max-width: 480px) {
+
+    /* Pantallas aún más pequeñas, hasta 480px */
     .search-results-box {
         width: 90%;
     }
-    
+
     .box-right a {
         font-size: 17px;
     }
-    
+
     /* Icono del filtro */
     #filter-icon {
         font-size: 19px !important;
     }
-    
+
     /* Ajustar los tamaños de h1 y h2 */
     .search-results-box h1 {
         font-size: 17px;
     }
-    
+
     .search-results-box h2 {
         font-size: 9px;
     }
 
-    .box-right h2{
+    .box-right h2 {
         font-size: 9px;
     }
 }
