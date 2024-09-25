@@ -1,0 +1,25 @@
+{% extends 'gravity_app/base.html' %}
+{% load static %}
+{% block title %}Pagar Pedido{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <h1>Pagar Pedido</h1>
+    <p>Total a pagar: ${{ carrito.total }}</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label for="metodo_pago">Método de Pago:</label>
+        <select id="metodo_pago" name="metodo_pago" required>
+            <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+            <option value="Paypal">Paypal</option>
+            <option value="Transferencia bancaria">Transferencia bancaria</option>
+        </select>
+        
+        <label for="direccion_entrega">Dirección de Entrega:</label>
+        <input type="text" id="direccion_entrega" name="direccion_entrega" required>
+        
+        <button type="submit">Confirmar Pago</button>
+    </form>
+</main>
+{% endblock %}

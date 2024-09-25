@@ -23,5 +23,12 @@
     {% else %}
         <p>No hay productos en tu carrito.</p>
     {% endif %}
+
+    {% if carrito.productos_en_carrito.count > 0 %}
+    <form method="GET" action="{% url 'pagar_pedido' %}">
+        <button type="submit">Pagar</button>
+    </form>
+    {% endif %}
+
 </main>
 {% endblock %}
