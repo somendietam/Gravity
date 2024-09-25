@@ -33,12 +33,13 @@
                 <td>
                     <a href="#">Editar</a> | 
                     <a href="#">Eliminar</a>
+
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
+    <a href="{% url 'crear_producto' %}">Agregar nuevo producto</a>
     <a href="{% url 'index' %}">Volver a la tienda</a>
 
 </body>

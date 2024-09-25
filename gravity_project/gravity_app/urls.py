@@ -10,4 +10,6 @@ urlpatterns = [
     path("tu-carrito/", views.ver_carrito, name="tu_carrito"),  # Nueva ruta
     path("admin_panel/", views.admin_panel, name="admin_panel"),
     path('buscar/', views.buscar_productos, name='buscar_productos'),
+    path('admin_panel/crear_producto/', views.crear_producto, name='crear_producto'),
+
 ]

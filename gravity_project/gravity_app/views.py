@@ -5,6 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import ProductoForm
 
 def index(request):
     productos = Producto.objects.all()
@@ -56,6 +57,18 @@ def user_logout(request):
 def admin_panel(request):
     productos = Producto.objects.all()
     return render(request, "gravity_app/admin_panel.html", {"productos": productos})
+
+staff_member_required
+def crear_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)  # Si tienes campos de imagen
+        if form.is_valid():
+            form.save()  # Guarda el nuevo producto
+            return redirect('admin_panel')  # Redirige a la vista de administración
+    else:
+        form = ProductoForm()
+
+    return render(request, 'crear_producto.html', {'form': form})
 
 @login_required
 def agregar_al_carrito(request, producto_id):
