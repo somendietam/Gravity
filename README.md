@@ -32,3 +32,7 @@ Con todas las dependencias instaladas, puedes ejecutar el servidor de desarrollo
 ```bash
 python manage.py runserver
 ```
+#Despliegue
+```bash
+http://3.212.242.247:8000/
+```
