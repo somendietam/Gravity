@@ -70,24 +70,6 @@ def crear_producto(request):
 
     return render(request, 'gravity_app/crear_producto.html', {'form': form})
 
-@staff_member_required
-def editar_producto(request, producto_id):
-    # Obtener el producto a editar
-    producto = get_object_or_404(Producto, id=producto_id)
-
-    if request.method == 'POST':
-        # Rellenar el formulario con los datos enviados
-        form = ProductoForm(request.POST, instance=producto)
-        if form.is_valid():
-            form.save()  # Guardar los cambios
-            return redirect('admin_panel')  # Redirigir a la vista de admin
-    else:
-        # Rellenar el formulario con los datos del producto existente
-        form = ProductoForm(instance=producto)
-
-    # Renderizar la plantilla de edición
-    return render(request, 'admin_panel/editar_producto.html', {'form': form, 'producto': producto})
-
 @login_required
 def agregar_al_carrito(request, producto_id):
     producto = Producto.objects.get(id=producto_id)

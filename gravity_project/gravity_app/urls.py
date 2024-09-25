@@ -11,6 +11,5 @@ urlpatterns = [
     path("admin_panel/", views.admin_panel, name="admin_panel"),
     path('buscar/', views.buscar_productos, name='buscar_productos'),
     path('admin_panel/crear_producto/', views.crear_producto, name='crear_producto'),
-    path('admin_panel/editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
 
 ]
