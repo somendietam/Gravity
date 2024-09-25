@@ -5,30 +5,46 @@
 
 {% block content %}
 <main class="main-content">
-    <h1>Resultados</h1>
-    
-    <h2 style="text-decoration: underline; font-size: medium;">
-        {% if query %}
-            Termino de Busqueda: {{ query }}
+    <!-- Caja con resultados y filtro -->
+    <div class="search-results-box">
+        <!-- Izquierda de la caja -->
+        <div class="box-left">
+            <h1>Resultados</h1>
 
-            {% if categoria_nombre %}
+            <h2 style="text-decoration: underline; font-size: medium;">
+                {% if query %}
+                Termino de Busqueda: {{ query }}
+
+                {% if categoria_nombre %}
                 |
-            {% endif %}
+                {% endif %}
 
-        {% endif %}
-        
-        {% if categoria_nombre %}
-            Categoria: {{ categoria_nombre }}
-        {% endif %}
-    </h2>
-    
+                {% endif %}
+
+                {% if categoria_nombre %}
+                Categoria: {{ categoria_nombre }}
+                {% endif %}
+            </h2>
+        </div>
+
+        <!-- Línea separadora vertical -->
+        <div class="vertical-line"></div>
+
+        <!-- Derecha de la caja -->
+        <div class="box-right">
+            <a href="#"><p>Filtrar</p>
+            <i class="iconoir-filter-list" id="filter-icon"></i></a>
+        </div>
+    </div>
+
     <section class="item-grid">
+        <!-- Aquí va el resto de tu código -->
         {% for producto in productos %}
         <div class="item">
             {% if producto.imagen %}
-                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
             {% else %}
-                <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
+            <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
             {% endif %}
             <p>{{ producto.nombre }}</p>
             <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
@@ -40,7 +56,7 @@
             </div>
         </div>
         {% empty %}
-            <p>No se encontraron productos.</p>
+        <p>No se encontraron productos.</p>
         {% endfor %}
     </section>
 </main>

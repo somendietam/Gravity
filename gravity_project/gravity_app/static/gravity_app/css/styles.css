@@ -443,3 +443,78 @@ h2 {
     font-family: "Nunito Sans", sans-serif;
     text-transform: uppercase;
 }
+
+/* Estilo buscador */
+.search-results-box {
+    display: flex;
+    justify-content: space-around; /* Distribuir espacio entre elementos */
+    align-items: center; /* Centrar verticalmente */
+    background-color: #000; /* Fondo negro */
+    border-right: 2px solid white; /* Borde blanco */
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
+    border-radius: 0px 0px 10px 10px; /* Bordes redondeados */
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative; /* Posicion relativa para la línea */
+    max-width: 800px; /* Establece un ancho máximo para que no sea demasiado grande */
+    margin: 0 auto; /* Centrar la caja horizontalmente */
+    width: 80%;
+}
+
+.box-left {
+    color: white;
+    text-align: center; /* Centrar el contenido del texto */
+    flex: 1; /* Hacer que la caja izquierda ocupe el mismo espacio que la derecha */
+    padding-right: 20px; /* Espacio a la derecha de la línea */
+}
+
+.box-right {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrar el botón Filtrar */
+    color: white;
+    flex: 1; /* Hacer que la caja derecha ocupe el mismo espacio que la izquierda */
+    padding-left: 20px; /* Espacio a la izquierda de la línea */
+    
+}
+.box-right a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Nunito Sans", sans-serif;
+    text-decoration: none;
+    color: white;
+    display: flex; /* Makes the link a flex container */
+    align-items: center; /* Vertically centers the text and icon */
+    gap: 8px; /* Adds space between the text and the icon */
+}
+
+/* Estilo de la línea separadora vertical */
+.vertical-line {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%; /* Centrar la línea verticalmente */
+    width: 1px;
+    background-color: white;
+}
+
+/* Icono del filtro */
+#filter-icon {
+    font-size: 1.2rem;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 34px;
+}
+
+/* Ajustar los tamaños de h1 y h2 */
+.search-results-box h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.search-results-box h2 {
+    font-size: 1rem;
+    margin: 0;
+}
