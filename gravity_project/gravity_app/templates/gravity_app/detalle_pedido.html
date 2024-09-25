@@ -18,5 +18,6 @@
         </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'generar_factura' pedido.id %}">Descargar Factura PDF</a>
 </main>
 {% endblock %}
