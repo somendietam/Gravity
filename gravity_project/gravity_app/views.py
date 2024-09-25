@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Producto, CarritoCompras, Cliente
+from .models import Producto, CarritoCompras, Cliente, ProductoEnCarrito
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -70,6 +70,24 @@ def agregar_al_carrito(request, producto_id):
 
     cliente.anadirAlCarrito(producto, 1)  # Agregar 1 producto al carrito
     return redirect('index')  # Redirigir de nuevo a la página de inicio
+
+@login_required
+def eliminar_del_carrito(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    cliente = Cliente.objects.get(user=request.user)
+
+    if not cliente.carrito:
+        messages.error(request, "No tienes un carrito activo.")
+        return redirect('tu_carrito')
+
+    try:
+        # Aquí se especifica que solo se elimina 1 unidad
+        cliente.carrito.eliminarProducto(producto, 1)
+        messages.success(request, f"Se eliminó 1 unidad de {producto.nombre} del carrito.")
+    except ProductoEnCarrito.DoesNotExist:
+        messages.error(request, "El producto no está en el carrito.")
+
+    return redirect('tu_carrito')
 
 
 @login_required

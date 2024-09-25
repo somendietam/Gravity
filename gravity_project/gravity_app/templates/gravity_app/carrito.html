@@ -2,14 +2,21 @@
 {% load static %}
 {% block title %}Tu Carrito{% endblock %}
 
-
 {% block content %}
 <main class="main-content">
     <h1>Tu Carrito</h1>
-    {% if carrito.productos.count > 0 %}
+    {% if carrito.productos_en_carrito.count > 0 %}
         <ul>
-            {% for producto in carrito.productos.all %}
-            <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
+            {% for producto_en_carrito in carrito.productos_en_carrito.all %}
+            <li>
+                {{ producto_en_carrito.producto.nombre }} - ${{ producto_en_carrito.producto.precio }}
+                <br>
+                Cantidad: {{ producto_en_carrito.cantidad }}
+                <form method="POST" action="{% url 'eliminar_del_carrito' producto_en_carrito.producto.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Eliminar</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
         <p>Total: ${{ carrito.total }}</p>
