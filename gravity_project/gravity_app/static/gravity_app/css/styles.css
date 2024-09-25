@@ -459,7 +459,8 @@ h2 {
     position: relative; /* Posicion relativa para la línea */
     max-width: 800px; /* Establece un ancho máximo para que no sea demasiado grande */
     margin: 0 auto; /* Centrar la caja horizontalmente */
-    width: 80%;
+    width: 75%;
+    min-width: 200px;
 }
 
 .box-left {
@@ -471,6 +472,7 @@ h2 {
 
 .box-right {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center; /* Centrar el botón Filtrar */
     color: white;
@@ -479,7 +481,7 @@ h2 {
     
 }
 .box-right a {
-    font-size: 1.5rem;
+    font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
     font-family: "Nunito Sans", sans-serif;
@@ -488,6 +490,10 @@ h2 {
     display: flex; /* Makes the link a flex container */
     align-items: center; /* Vertically centers the text and icon */
     gap: 8px; /* Adds space between the text and the icon */
+    height: 32px;
+}
+.search-results-box h2 {
+    font-size: 12px;
 }
 
 /* Estilo de la línea separadora vertical */
@@ -502,7 +508,7 @@ h2 {
 
 /* Icono del filtro */
 #filter-icon {
-    font-size: 1.2rem;
+    font-size: 26px !important;
     margin-left: 10px;
     cursor: pointer;
     font-size: 34px;
@@ -510,12 +516,12 @@ h2 {
 
 /* Ajustar los tamaños de h1 y h2 */
 .search-results-box h1 {
-    font-size: 1.5rem;
+    font-size: 24px;
     margin: 0;
 }
 
 .search-results-box h2 {
-    font-size: 1rem;
+    font-size: 16px;
     margin: 0;
 }
 
@@ -549,11 +555,65 @@ h2 {
 .dropdown-content-filter li a {
     color: #000000;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 1.2rem;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .dropdown-content-filter li a:hover {
     text-decoration: underline;
+}
+.selected-filter {
+    font-weight: bold;
+    text-decoration: underline !important;
+}
+
+
+@media (max-width: 768px) {  /* Pantallas pequeñas, hasta 768px */
+    .box-right a {
+        font-size: 20px;
+    }
+    
+    /* Icono del filtro */
+    #filter-icon {
+        font-size: 22px !important;
+    }
+    
+    /* Ajustar los tamaños de h1 y h2 */
+    .search-results-box h1 {
+        font-size: 20px;
+    }
+    
+    .search-results-box h2 {
+        font-size: 12px;
+    }
+    
+}
+
+@media (max-width: 480px) {  /* Pantallas aún más pequeñas, hasta 480px */
+    .search-results-box {
+        width: 90%;
+    }
+    
+    .box-right a {
+        font-size: 17px;
+    }
+    
+    /* Icono del filtro */
+    #filter-icon {
+        font-size: 19px !important;
+    }
+    
+    /* Ajustar los tamaños de h1 y h2 */
+    .search-results-box h1 {
+        font-size: 17px;
+    }
+    
+    .search-results-box h2 {
+        font-size: 9px;
+    }
+
+    .box-right h2{
+        font-size: 9px;
+    }
 }

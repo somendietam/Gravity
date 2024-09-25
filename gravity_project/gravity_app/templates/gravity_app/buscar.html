@@ -11,7 +11,7 @@
         <div class="box-left">
             <h1>Resultados</h1>
 
-            <h2 style="text-decoration: underline; font-size: medium;">
+            <h2 style="text-decoration: underline;">
                 {% if query %}
                 Termino de Busqueda: {{ query }}
 
@@ -36,13 +36,27 @@
                 <p>Filtrar</p>
                 <i class="iconoir-filter-list" id="filter-icon"></i>
             </a>
+
+            {% if orden %}
+                <h2 style="text-decoration: underline;">
+                    Filtro aplicado:
+                    {% if orden == 'precio_asc' %}
+                        Precio: Menor a Mayor
+                    {% elif orden == 'precio_desc' %}
+                        Precio: Mayor a Menor
+                    {% elif orden == 'stock_asc' %}
+                        Más vendidos
+                    {% endif %}
+                </h2>
+            {% endif %}
         
             <!-- Menu desplegable de filtros -->
             <ul class="dropdown-content-filter" id="filter-menu" style="display: none;">
-                <li><a href="#">Precio: Menor a Mayor</a></li>
-                <li><a href="#">Precio: Mayor a Menor</a></li>
-                <li><a href="#">Más vendidos</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_asc" {% if orden == 'precio_asc' %}class="selected-filter"{% endif %}>Precio: Menor a Mayor</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_desc" {% if orden == 'precio_desc' %}class="selected-filter"{% endif %}>Precio: Mayor a Menor</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=stock_asc" {% if orden == 'stock_asc' %}class="selected-filter"{% endif %}>Más vendidos</a></li>
             </ul>
+
         </div>
 
     </div>

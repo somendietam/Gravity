@@ -110,7 +110,8 @@ def ver_carrito(request):
 
 def buscar_productos(request):
     query = request.GET.get('q', '')
-    categoria_nombre = request.GET.get('categoria', None)  # Capture the category name from URL parameters
+    categoria_nombre = request.GET.get('categoria', '')  # Capture the category name from URL parameters
+    orden = request.GET.get('orden', None)  # Capture the sorting order from URL parameters
     productos = Producto.objects.all()  # Start by fetching all products
 
     # Filter by category if provided
@@ -125,13 +126,23 @@ def buscar_productos(request):
         for token in tokens[1:]:
             productos = productos | Producto.objects.filter(nombre__icontains=token)
 
+    # Apply ordering based on the selected filter
+    if orden == 'precio_asc':
+        productos = productos.order_by('precio')
+    elif orden == 'precio_desc':
+        productos = productos.order_by('-precio')
+    elif orden == 'stock_asc':  # Assuming less stock means more sold
+        productos = productos.order_by('stock')
+
     context = {
         'productos': productos,
         'query': query,
-        'categoria_nombre': categoria_nombre  # Pass the selected category name to the template
+        'categoria_nombre': categoria_nombre,  # Pass the selected category name to the template
+        'orden': orden  # Pass the selected order to the template
     }
 
     return render(request, 'gravity_app/buscar.html', context)
+
 
 @login_required
 def pagar_pedido(request):
