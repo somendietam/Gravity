@@ -131,7 +131,7 @@ class Cliente(models.Model):
         return producto
 
     def pagarPedido(self, metodo_pago, direccion_entrega):
-        if not self.carrito.productos.exists():
+        if not self.carrito.productos_en_carrito.exists():
             raise ValueError("No hay productos en el carrito para realizar el pedido.")
 
         # Crear un nuevo pedido
@@ -145,18 +145,24 @@ class Cliente(models.Model):
         pedido.save()
 
         # Crear detalles del pedido a través de PedidoProducto
-        for producto in self.carrito.productos.all():
-            cantidad = self.carrito.productos.filter(id=producto.id).count()
-            total = producto.precio * cantidad
-            PedidoProducto.objects.create(pedido=pedido, producto=producto, cantidad=cantidad, total=total)
+        for producto_en_carrito in self.carrito.productos_en_carrito.all():
+            cantidad = producto_en_carrito.cantidad
+            total = producto_en_carrito.producto.precio * cantidad
+            PedidoProducto.objects.create(
+                pedido=pedido, 
+                producto=producto_en_carrito.producto, 
+                cantidad=cantidad, 
+                total=total
+            )
 
         # Vaciar el carrito
-        self.carrito.productos.clear()
+        self.carrito.productos_en_carrito.all().delete()
         self.carrito.total = 0
         self.carrito.numeroProductos = 0
         self.carrito.save()
 
         return pedido  # Retorna el pedido creado
+
 
 class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
