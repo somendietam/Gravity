@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-@login_required
 def index(request):
     productos = Producto.objects.all()
     context = {
