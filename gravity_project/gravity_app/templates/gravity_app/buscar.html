@@ -1,0 +1,26 @@
+{% extends 'gravity_app/base.html' %}
+
+{% load static %}
+{% block title %}Gravity Colombia{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <section class="item-grid">
+        {% for producto in productos %}
+        <div class="item">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% else %}
+                <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
+            {% endif %}
+            <p>{{ producto.nombre }}</p>
+            <p>Precio: ${{ producto.precio }}</p>
+            <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
+                {% csrf_token %}
+                <button type="submit">Agregar al carrito</button>
+            </form>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

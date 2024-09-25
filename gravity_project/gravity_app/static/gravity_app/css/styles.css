@@ -201,6 +201,10 @@ header .mobile-menu {
     display: none;
 }
 
+#menu-toggle:hover{
+    color: #000;
+}
+
 /* Mobile menu styles */
 .mobile-menu-content {
     display: none; /* Initially hidden */
@@ -214,6 +218,8 @@ header .mobile-menu {
     z-index: 999; /* On top of other content */
     padding: 20px; /* Add some padding */
     overflow-y: auto; /* Scroll if content overflows */
+
+    border-left: 2px solid #fff;
 }
 
 /* Show mobile menu when active */
@@ -243,6 +249,7 @@ header .mobile-menu {
 .mobile-nav ul li {
     margin: 15px 0; /* Space between items */
 }
+
 
 /* Show mobile menu icon when screen width is less than 800px */
 @media screen and (max-width: 900px) {
@@ -278,4 +285,96 @@ header .mobile-menu {
     .item-grid {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+/* Estilo del contenedor del formulario de búsqueda (overlay) */
+.search-form-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparente para que se vea sobre el contenido */
+    z-index: 10; /* Asegurarnos de que esté por encima del resto */
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del formulario de búsqueda */
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.search-form span{
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Prevent overflow */
+    padding-right: 20px;
+}
+
+/* Campo de texto de búsqueda (toma todo el ancho menos el botón) */
+.search-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: bold;
+    border: 1px solid #fff;
+    border-radius: 5px 0px 0px 5px;
+    border-style: none;
+}
+
+/* Botón de búsqueda */
+.search-form button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+
+    border-right: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+.search-form button:hover {
+    background-color: #fff;
+    color: #000;
+    transition: color 0.5s ease;
+    transition: background-color 0.5s;
+}
+
+/* Asegurar que el formulario de búsqueda no afecte el layout del menú */
+.desktop-menu {
+    position: relative;
+}
+
+/* Para que el formulario de búsqueda no desplace el resto del contenido */
+.search-form-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%; /* Ajuste si tienes margen en tu header */
+    height: auto;
+    z-index: 999;
+    background: #000;
+    padding: 0px;
+}
+
+/* Estilos para el botón de cierre */
+.close-search {
+    display: none;
+}
+
+.show-close-search {
+    display: block;
 }

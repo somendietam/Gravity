@@ -77,3 +77,22 @@ def agregar_al_carrito(request, producto_id):
 def ver_carrito(request):
     cliente = Cliente.objects.get(user=request.user)
     return render(request, 'gravity_app/carrito.html', {'carrito': cliente.carrito})
+
+def buscar_productos(request):
+    query = request.GET.get('q', '')
+    productos = []
+
+    if query:
+        # Tokenize the query
+        tokens = query.split()  # Split the query into tokens
+        # Search for productos matching any of the tokens
+        productos = Producto.objects.filter(nombre__icontains=tokens[0])  # Start filtering with the first token
+        for token in tokens[1:]:
+            productos = productos | Producto.objects.filter(nombre__icontains=token)
+
+    context = {
+        'productos': productos,
+        'query': query,
+    }
+
+    return render(request, 'gravity_app/buscar.html', context)
