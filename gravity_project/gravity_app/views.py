@@ -1,3 +1,5 @@
+#AUTOR: Todos.
+
 from django.shortcuts import render, redirect, get_object_or_404    
 from django.contrib.auth.decorators import login_required
 from .models import Producto, CarritoCompras, Cliente, ProductoEnCarrito, Pedido, PedidoProducto, Categoria
