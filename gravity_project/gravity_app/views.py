@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404    
 from django.contrib.auth.decorators import login_required
-from .models import Producto, CarritoCompras, Cliente, ProductoEnCarrito, Categoria
+from .models import Producto, CarritoCompras, Cliente, ProductoEnCarrito, Pedido, PedidoProducto, Categoria
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -132,3 +132,30 @@ def buscar_productos(request):
     }
 
     return render(request, 'gravity_app/buscar.html', context)
+
+@login_required
+def pagar_pedido(request):
+    cliente = request.user.cliente
+    
+    if request.method == 'POST':
+        metodo_pago = request.POST.get('metodo_pago')
+        direccion_entrega = request.POST.get('direccion_entrega')
+
+        try:
+            # Intentar realizar el pago del pedido
+            pedido = cliente.pagarPedido(metodo_pago, direccion_entrega)
+            messages.success(request, f'Pedido realizado con éxito. Pedido ID: {pedido.id}')
+            return redirect('detalle_pedido', pedido_id=pedido.id)
+
+        except ValueError as e:
+            messages.error(request, str(e))
+            return redirect('ver_carrito')
+
+    return render(request, 'gravity_app/pagar_pedido.html', {
+        'carrito': cliente.carrito
+    })
+
+@login_required
+def detalle_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id, cliente=request.user.cliente)
+    return render(request, 'gravity_app/detalle_pedido.html', {'pedido': pedido})
