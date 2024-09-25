@@ -40,6 +40,10 @@ class Producto(models.Model):
             raise ValueError('El stock no puede ser negativo')
         super().save(*args, **kwargs)
 
+    def precio_formateado(self):
+        # Formatear el precio como COP, sin decimales y separando las miles con puntos
+        return "{:,.0f}".format(self.precio).replace(",", ".")
+
 
 class CarritoCompras(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, null=True, related_name='carrito_compra')

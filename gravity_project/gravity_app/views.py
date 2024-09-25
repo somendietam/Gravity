@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Producto, CarritoCompras, Cliente
+from .models import Producto, CarritoCompras, Cliente, Categoria
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+
+def base_view(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'base.html', {'categorias': categorias})
 
 def index(request):
     productos = Producto.objects.all()
@@ -79,19 +84,25 @@ def ver_carrito(request):
 
 def buscar_productos(request):
     query = request.GET.get('q', '')
-    productos = []
+    categoria_nombre = request.GET.get('categoria', None)  # Capture the category name from URL parameters
+    productos = Producto.objects.all()  # Start by fetching all products
 
+    # Filter by category if provided
+    if categoria_nombre:
+        productos = productos.filter(categoria__nombre__iexact=categoria_nombre)  # Filter by exact category name
+
+    # Tokenize and filter by query if provided
     if query:
-        # Tokenize the query
         tokens = query.split()  # Split the query into tokens
         # Search for productos matching any of the tokens
-        productos = Producto.objects.filter(nombre__icontains=tokens[0])  # Start filtering with the first token
+        productos = productos.filter(nombre__icontains=tokens[0])  # Start filtering with the first token
         for token in tokens[1:]:
             productos = productos | Producto.objects.filter(nombre__icontains=token)
 
     context = {
         'productos': productos,
         'query': query,
+        'categoria_nombre': categoria_nombre  # Pass the selected category name to the template
     }
 
     return render(request, 'gravity_app/buscar.html', context)

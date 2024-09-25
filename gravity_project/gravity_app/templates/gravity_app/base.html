@@ -57,7 +57,7 @@
 
     <header>
         <div class="header-left">
-            <img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'gravity_app/images/Gravity_Logo_White.png' %}" alt="Gravity Project Logo" class="logo"></a>
         </div>
         <div class="header-right">
             <nav>
@@ -78,9 +78,9 @@
                             <i class="iconoir-shirt"></i> <span> / Categorias</span>
                         </a>
                         <ul class="dropdown-content">
-                            <li><a href="#">CAMISETAS</a></li>
-                            <li><a href="#">JOGGERS</a></li>
-                            <li><a href="#">ACCESORIOS</a></li>
+                            {% for categoria in categorias %}
+                                <li><a href="{% url 'buscar_productos' %}?categoria={{ categoria.nombre }}">{{ categoria.nombre }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     

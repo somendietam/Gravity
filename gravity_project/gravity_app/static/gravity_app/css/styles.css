@@ -36,7 +36,9 @@ header {
     padding-right: 20px; /* Espacio items borde derecho */
 }
 
-
+.header-left{
+    cursor: pointer;
+}
 .header-left .logo {
     width: 150px;
 }
@@ -165,7 +167,7 @@ header {
 
 /* Main content styles */
 .main-content {
-    padding-top: 100px; /* To avoid being overlapped by the fixed header */
+    padding-top: 120px; /* To avoid being overlapped by the fixed header */
     padding-left: 10px;
     padding-right: 10px;
     max-width: 1600px;
@@ -191,7 +193,59 @@ header {
     font-size: 18px;
     color: #FFFFFF;
     text-transform: uppercase;
-    font-style: italic;
+}
+
+/* Centering the button */
+.button-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    margin-top: 10px; /* Add some spacing above the button */
+}
+
+/* Button Styles */
+.add-to-cart-button {
+    border: 2px solid white; /* White border */
+    background-color: black; /* Black background */
+    color: rgb(255, 255, 255); /* White text */
+    text-transform: uppercase;
+    padding: 10px 20px; /* Adjust padding */
+    font-size: 16px; /* Font size */
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer; /* Pointer cursor */
+    position: relative; /* Position for the pseudo-element */
+    overflow: hidden; /* Ensure overflow is hidden */
+    transition: color 0.5s ease; /* Smooth transition for color */
+}
+
+/* Circle Animation Effect */
+.add-to-cart-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%; /* Size of the circle */
+    height: 300%; /* Size of the circle */
+    background-color: white; /* Circle background color */
+    transition: transform 0.5s ease; /* Transition for background effect */
+    border-radius: 50%; /* Make it circular */
+    transform: translate(-50%, -50%) scale(0); /* Start scaled down */
+    z-index: -1; /* Behind text */
+}
+
+.add-to-cart-button:hover::before {
+    transform: translate(-50%, -50%) scale(1); /* Scale up on hover */
+}
+
+/* Text and icon style */
+.add-to-cart-button:hover {
+    color: black; /* Change text color to black on hover */
+    background-color: white;
+}
+
+.add-to-cart-button span {
+    position: relative; /* Position relative to stack above the pseudo-element */
+    z-index: 1; /* Ensure text is above the background */
 }
 
 /* RESPONSIVE SHIT */
@@ -377,4 +431,15 @@ header .mobile-menu {
 
 .show-close-search {
     display: block;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    text-transform: uppercase;
+}
+h2 {
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    text-transform: uppercase;
 }

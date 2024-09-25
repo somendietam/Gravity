@@ -5,6 +5,23 @@
 
 {% block content %}
 <main class="main-content">
+    <h1>Resultados</h1>
+    
+    <h2 style="text-decoration: underline; font-size: medium;">
+        {% if query %}
+            Termino de Busqueda: {{ query }}
+
+            {% if categoria_nombre %}
+                |
+            {% endif %}
+
+        {% endif %}
+        
+        {% if categoria_nombre %}
+            Categoria: {{ categoria_nombre }}
+        {% endif %}
+    </h2>
+    
     <section class="item-grid">
         {% for producto in productos %}
         <div class="item">
@@ -14,12 +31,16 @@
                 <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
             {% endif %}
             <p>{{ producto.nombre }}</p>
-            <p>Precio: ${{ producto.precio }}</p>
-            <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
-                {% csrf_token %}
-                <button type="submit">Agregar al carrito</button>
-            </form>
+            <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
+            <div class="button-container">
+                <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="add-to-cart-button">Agregar al carrito</button>
+                </form>
+            </div>
         </div>
+        {% empty %}
+            <p>No se encontraron productos.</p>
         {% endfor %}
     </section>
 </main>
