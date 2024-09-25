@@ -1,3 +1,5 @@
+<!-- AUTOR: CRISTIAN CARDENAS -->
+
 {% extends 'gravity_app/base.html' %}
 
 {% load static %}
@@ -63,21 +65,24 @@
 
 
     <section class="item-grid">
-        <!-- Aquí va el resto de tu código -->
         {% for producto in productos %}
-        <div class="item">
-            {% if producto.imagen %}
-            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
-            {% else %}
-            <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
-            {% endif %}
-            <p>{{ producto.nombre }}</p>
-            <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
-            <div class="button-container">
-                <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="add-to-cart-button">Agregar al carrito</button>
-                </form>
+        <div class="cart-item">
+            <div class="item">
+                <p style="font-weight: bold;">{{ producto.nombre }}</p>
+
+                {% if producto.imagen %}
+                    <img style="border: #333 3px solid;" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                {% else %}
+                    <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
+                {% endif %}
+                
+                <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
+                <div class="button-container"> <!-- Container for the button -->
+                    <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="add-to-cart-button">Agregar al carrito</button>
+                    </form>
+                </div>
             </div>
         </div>
         {% empty %}

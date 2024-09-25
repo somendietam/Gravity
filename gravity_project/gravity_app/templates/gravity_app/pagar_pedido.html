@@ -4,22 +4,22 @@
 
 {% block content %}
 <main class="main-content">
-    <h1>Pagar Pedido</h1>
-    <p>Total a pagar: ${{ carrito.total }}</p>
+    <h1 class="payment-title">Pagar Pedido</h1>
+    <p class="payment-total">Total a pagar: ${{ carrito.total }}</p>
     
-    <form method="POST">
+    <form class="payment-form" method="POST">
         {% csrf_token %}
-        <label for="metodo_pago">Método de Pago:</label>
-        <select id="metodo_pago" name="metodo_pago" required>
+        <label class="payment-label" for="metodo_pago">Método de Pago:</label>
+        <select class="payment-select" id="metodo_pago" name="metodo_pago" required>
             <option value="Tarjeta de crédito">Tarjeta de crédito</option>
             <option value="Paypal">Paypal</option>
             <option value="Transferencia bancaria">Transferencia bancaria</option>
         </select>
         
-        <label for="direccion_entrega">Dirección de Entrega:</label>
-        <input type="text" id="direccion_entrega" name="direccion_entrega" required>
+        <label class="payment-label" for="direccion_entrega">Dirección de Entrega:</label>
+        <input class="payment-input" type="text" id="direccion_entrega" name="direccion_entrega" required>
         
-        <button type="submit">Confirmar Pago</button>
+        <button class="payment-button" type="submit">Confirmar Pago</button>
     </form>
 </main>
 {% endblock %}

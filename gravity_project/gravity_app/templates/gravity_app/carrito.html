@@ -1,34 +1,38 @@
+<!-- AUTOR:  -->
+
 {% extends 'gravity_app/base.html' %}
 {% load static %}
 {% block title %}Tu Carrito{% endblock %}
 
 {% block content %}
 <main class="main-content">
-    <h1>Tu Carrito</h1>
+    <h1 class="cart-title">Tu Carrito</h1>
     {% if carrito.productos_en_carrito.count > 0 %}
-        <ul>
+        <ul class="cart-items">
             {% for producto_en_carrito in carrito.productos_en_carrito.all %}
-            <li>
-                {{ producto_en_carrito.producto.nombre }} - ${{ producto_en_carrito.producto.precio }}
-                <br>
-                Cantidad: {{ producto_en_carrito.cantidad }}
-                <form method="POST" action="{% url 'eliminar_del_carrito' producto_en_carrito.producto.id %}">
+            <li class="cart-item">
+                <div class="product-info">
+                    <span class="product-name">{{ producto_en_carrito.producto.nombre }}</span> - 
+                    <span class="product-price">${{ producto_en_carrito.producto.precio }}</span>
+                    <br>
+                    <span class="product-quantity">Cantidad: {{ producto_en_carrito.cantidad }}</span>
+                </div>
+                <form class="remove-form" method="POST" action="{% url 'eliminar_del_carrito' producto_en_carrito.producto.id %}">
                     {% csrf_token %}
-                    <button type="submit">Eliminar</button>
+                    <button type="submit" class="remove-button">Eliminar</button>
                 </form>
             </li>
             {% endfor %}
         </ul>
-        <p>Total: ${{ carrito.total }}</p>
+        <p class="cart-total">Total: ${{ carrito.total }}</p>
     {% else %}
-        <p>No hay productos en tu carrito.</p>
+        <p class="empty-cart-message">No hay productos en tu carrito.</p>
     {% endif %}
 
     {% if carrito.productos_en_carrito.count > 0 %}
-    <form method="GET" action="{% url 'pagar_pedido' %}">
-        <button type="submit">Pagar</button>
+    <form class="checkout-form" method="GET" action="{% url 'pagar_pedido' %}">
+        <button type="submit" class="checkout-button">Pagar</button>
     </form>
     {% endif %}
-
 </main>
 {% endblock %}
