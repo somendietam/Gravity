@@ -5,7 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ProductoForm
+from .forms import ProductoForm, CategoriaForm
 
 def index(request):
     productos = Producto.objects.all()
@@ -59,6 +59,17 @@ def admin_panel(request):
     return render(request, "gravity_app/admin_panel.html", {"productos": productos})
 
 @staff_member_required
+def crear_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_panel')
+    else:
+        form = CategoriaForm()
+    return render(request, 'gravity_app/crear_categoria.html', {'form': form})
+
+@staff_member_required
 def crear_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)  # Si tienes campos de imagen
@@ -69,6 +80,27 @@ def crear_producto(request):
         form = ProductoForm()
 
     return render(request, 'gravity_app/crear_producto.html', {'form': form})
+
+
+@staff_member_required
+def editar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()  # Guarda el producto editado
+            return redirect('admin_panel')  # Redirige a la vista del panel de admin
+    else:
+        form = ProductoForm(instance=producto)
+
+    return render(request, 'gravity_app/editar_producto.html', {'form': form, 'producto': producto})
+
+@staff_member_required
+def eliminar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    producto.delete()
+    return redirect('admin_panel')
 
 @login_required
 def agregar_al_carrito(request, producto_id):
@@ -83,7 +115,6 @@ def agregar_al_carrito(request, producto_id):
 
     cliente.anadirAlCarrito(producto, 1)  # Agregar 1 producto al carrito
     return redirect('index')  # Redirigir de nuevo a la página de inicio
-
 
 @login_required
 def ver_carrito(request):
