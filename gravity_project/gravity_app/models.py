@@ -44,16 +44,28 @@ class Producto(models.Model):
 class CarritoCompras(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, null=True, related_name='carrito_compra')
     numeroProductos = models.IntegerField(default=0)
-    productos = models.ManyToManyField(Producto)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
     fecha_creacion = models.DateTimeField(auto_now_add=True, null=True)
 
     def verCarritoCompras(self):
-        return self.productos.all()
+        return self.productos_en_carrito.all()
 
     def agregarProducto(self, producto, cantidad):
-        # Agrega el producto y actualiza el total
-        self.productos.add(producto)
+        # Verificar si el producto ya está en el carrito
+        producto_en_carrito, created = ProductoEnCarrito.objects.get_or_create(
+            carrito=self,
+            producto=producto
+        )
+
+        # Si el producto ya está en el carrito, solo actualiza la cantidad
+        if not created:
+            producto_en_carrito.cantidad += cantidad
+        else:
+            producto_en_carrito.cantidad = cantidad
+
+        producto_en_carrito.save()
+
+        # Actualiza los totales del carrito
         self.numeroProductos += cantidad
         self.total += producto.precio * cantidad
         producto.stock -= cantidad
@@ -61,12 +73,36 @@ class CarritoCompras(models.Model):
         self.save()  # Guarda el carrito actualizado
 
     def eliminarProducto(self, producto, cantidad):
-        self.productos.remove(producto)
-        self.numeroProductos -= cantidad
-        self.total -= producto.precio * cantidad
-        producto.stock += cantidad
-        producto.save()
-        self.save()
+        try:
+            producto_en_carrito = ProductoEnCarrito.objects.get(
+                carrito=self,
+                producto=producto
+            )
+
+            # Si la cantidad a eliminar es menor que la cantidad en el carrito, solo reduce la cantidad
+            if producto_en_carrito.cantidad > cantidad:
+                producto_en_carrito.cantidad -= cantidad
+                producto_en_carrito.save()
+            else:
+                # Si se elimina toda la cantidad, elimina el producto del carrito
+                producto_en_carrito.delete()
+
+            self.numeroProductos -= cantidad
+            self.total -= producto.precio * cantidad
+            producto.stock += cantidad
+            producto.save()
+            self.save()
+
+        except ProductoEnCarrito.DoesNotExist:
+            pass  # Si el producto no está en el carrito, no hace nada
+    
+class ProductoEnCarrito(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    carrito = models.ForeignKey('CarritoCompras', on_delete=models.CASCADE, related_name='productos_en_carrito')
+    cantidad = models.IntegerField(default=1)
+
+    def total_precio(self):
+        return self.producto.precio * self.cantidad
     
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -128,7 +164,7 @@ class Pedido(models.Model):
     metodoPago = models.CharField(max_length=50)
     numGuia = models.CharField(max_length=50, null=True)
     direccionEntrega = models.CharField(max_length=255)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos')  
     productos = models.ManyToManyField(Producto, through='PedidoProducto')  # Relación con productos
     totalPagar = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
 
