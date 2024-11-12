@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from .forms import ProductoForm, CategoriaForm
+from .reportes import PDFReporteGenerator, ExcelReporteGenerator
 
 def index(request):
     productos = Producto.objects.all()
@@ -212,23 +213,11 @@ def detalle_pedido(request, pedido_id):
 @login_required
 def generar_factura(request, pedido_id):
     pedido = Pedido.objects.get(id=pedido_id)
+    
+    formato = request.GET.get('formato', 'pdf') 
+    if formato == 'excel':
+        reporte_generator = ExcelReporteGenerator()
+    else:
+        reporte_generator = PDFReporteGenerator()
 
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="factura_{pedido.id}.pdf"'
-
-    p = canvas.Canvas(response, pagesize=letter)
-    p.drawString(100, 750, f"Factura #{pedido.id}")
-    p.drawString(100, 730, f"Fecha: {pedido.fecha}")
-    p.drawString(100, 710, f"Método de Pago: {pedido.metodoPago}")
-    p.drawString(100, 690, f"Dirección de Entrega: {pedido.direccionEntrega}")
-    p.drawString(100, 670, f"Total a Pagar: ${pedido.totalPagar}")
-
-    p.drawString(100, 640, "Productos:")
-    y = 620
-    for detalle in pedido.pedidoproducto_set.all():
-        p.drawString(100, y, f"{detalle.producto.nombre} - Cantidad: {detalle.cantidad} - Total: ${detalle.total}")
-        y -= 20  # Mueve hacia abajo para el siguiente producto
-
-    p.showPage()
-    p.save()
-    return response
+    return reporte_generator.generar_factura(pedido)
