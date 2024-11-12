@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin_panel/editar_producto/<int:producto_id>/', views.editar_producto, name='editar_producto'),
     path('crear_categoria/', views.crear_categoria, name='crear_categoria'),
     path('eliminar_producto/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
-
+    path('api/productos-en-stock/', views.productos_en_stock, name='productos_en_stock'),
 ]

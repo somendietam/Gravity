@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProductoForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from .forms import ProductoForm, CategoriaForm
@@ -232,3 +232,20 @@ def generar_factura(request, pedido_id):
     p.showPage()
     p.save()
     return response
+
+
+def productos_en_stock(request):
+    productos = Producto.objects.filter(stock__gt=0)  # Filtra productos con stock disponible
+    data = {
+        "productos": [
+            {
+                "id": producto.id,
+                "nombre": producto.nombre,
+                "descripcion": producto.descripcion,
+                "precio": str(producto.precio),  # Convertir a string para evitar errores de serialización
+                "stock": producto.stock
+            }
+            for producto in productos
+        ]
+    }
+    return JsonResponse(data)
