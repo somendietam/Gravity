@@ -23,6 +23,7 @@ Con el entorno virtual activado, ejecuta el siguiente comando para instalar Djan
 
 ```bash
 pip install django reportlab
+pip install openpyxl
 ```
 
 ### 4. Ejecutar la aplicación
