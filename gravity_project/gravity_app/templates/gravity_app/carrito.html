@@ -1,12 +1,13 @@
 <!-- AUTOR: Brayan Zuluaga & -->
 
 {% extends 'gravity_app/base.html' %}
+{% load i18n %}
 {% load static %}
 {% block title %}Tu Carrito{% endblock %}
 
 {% block content %}
 <main class="main-content">
-    <h1 class="cart-title">Tu Carrito</h1>
+    <h1 class="cart-title">{% trans "Tu Carrito" %}</h1>
     {% if carrito.productos_en_carrito.count > 0 %}
         <ul class="cart-items">
             {% for producto_en_carrito in carrito.productos_en_carrito.all %}
@@ -15,18 +16,18 @@
                     <span class="product-name">{{ producto_en_carrito.producto.nombre }}</span> - 
                     <span class="product-price">${{ producto_en_carrito.producto.precio }}</span>
                     <br>
-                    <span class="product-quantity">Cantidad: {{ producto_en_carrito.cantidad }}</span>
+                    <span class="product-quantity">{% trans "Cantidad" %} {{ producto_en_carrito.cantidad }}</span>
                 </div>
                 <form class="remove-form" method="POST" action="{% url 'eliminar_del_carrito' producto_en_carrito.producto.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="remove-button">Eliminar</button>
+                    <button type="submit" class="remove-button">{% trans "Eliminar" %}</button>
                 </form>
             </li>
             {% endfor %}
         </ul>
-        <p class="cart-total">Total: ${{ carrito.total }}</p>
+        <p class="cart-total">{% trans "Total" %}: ${{ carrito.total }}</p>
     {% else %}
-        <p class="empty-cart-message">No hay productos en tu carrito.</p>
+        <p class="empty-cart-message">{% trans "No hay productos en tu carrito" %}</p>
     {% endif %}
 
     {% if carrito.productos_en_carrito.count > 0 %}

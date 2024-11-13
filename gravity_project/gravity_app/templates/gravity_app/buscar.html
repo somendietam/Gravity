@@ -2,6 +2,7 @@
 
 {% extends 'gravity_app/base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% block title %}Gravity Colombia{% endblock %}
 
@@ -11,11 +12,11 @@
     <div class="search-results-box">
         <!-- Izquierda de la caja -->
         <div class="box-left">
-            <h1>Resultados</h1>
+            <h1>{% trans "Resultados" %}</h1>
 
             <h2 style="text-decoration: underline;">
                 {% if query %}
-                Termino de Busqueda: {{ query }}
+                {% trans "Termino de Busqueda" %}: {{ query }}
 
                 {% if categoria_nombre %}
                 |
@@ -24,7 +25,7 @@
                 {% endif %}
 
                 {% if categoria_nombre %}
-                Categoria: {{ categoria_nombre }}
+                {% trans "Categoria" %}: {{ categoria_nombre }}
                 {% endif %}
             </h2>
         </div>
@@ -35,7 +36,7 @@
         <!-- Derecha de la caja -->
         <div class="box-right">
             <a href="#" id="filter-toggle">
-                <p>Filtrar</p>
+                <p>{% trans "Filtrar" %}</p>
                 <i class="iconoir-filter-list" id="filter-icon"></i>
             </a>
 
@@ -54,39 +55,44 @@
         
             <!-- Menu desplegable de filtros -->
             <ul class="dropdown-content-filter" id="filter-menu" style="display: none;">
-                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_asc" {% if orden == 'precio_asc' %}class="selected-filter"{% endif %}>Precio: Menor a Mayor</a></li>
-                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_desc" {% if orden == 'precio_desc' %}class="selected-filter"{% endif %}>Precio: Mayor a Menor</a></li>
-                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=stock_asc" {% if orden == 'stock_asc' %}class="selected-filter"{% endif %}>Más vendidos</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_asc" {% if orden == 'precio_asc' %}class="selected-filter"{% endif %}>{% trans "Precio: Menor a Mayor" %}</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=precio_desc" {% if orden == 'precio_desc' %}class="selected-filter"{% endif %}>{% trans "Precio: Mayor a Menor" %}</a></li>
+                <li><a href="?q={{ query }}&categoria={{ categoria_nombre }}&orden=stock_asc" {% if orden == 'stock_asc' %}class="selected-filter"{% endif %}>{% trans "Más vendidos" %}</a></li>
             </ul>
 
         </div>
 
     </div>
 
+    {% if suggestion %}
+    <h2 style="text-decoration: underline;">
+        {% trans "Sugerencia de outfit por la IA para: " %} <span style="text-decoration: none !important;">{{ suggestion }}</span>
+    </h2>
+    {% endif %}
 
     <section class="item-grid">
         {% for producto in productos %}
         <div class="cart-item">
             <div class="item">
                 <p style="font-weight: bold;">{{ producto.nombre }}</p>
-
+    
                 {% if producto.imagen %}
                     <img style="border: #333 3px solid;" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                 {% else %}
                     <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
                 {% endif %}
                 
-                <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
-                <div class="button-container"> <!-- Container for the button -->
+                <p style="font-style: italic;">{% trans "Precio" %}: ${{ producto.precio_formateado }}</p>
+                <div class="button-container">
                     <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="add-to-cart-button">Agregar al carrito</button>
+                        <button type="submit" class="add-to-cart-button">{% trans "Agregar al carrito" %}</button>
                     </form>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>No se encontraron productos.</p>
+        <p>{% trans "No se encontraron productos" %}</p>
         {% endfor %}
     </section>
 </main>

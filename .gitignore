@@ -135,6 +135,8 @@ ENV/
 env.bak/
 venv.bak/
 
+../gravity_project/gravity_app/.env
+
 # Spyder project settings
 .spyderproject
 .spyproject

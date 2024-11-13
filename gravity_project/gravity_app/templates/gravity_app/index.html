@@ -1,7 +1,7 @@
 <!-- AUTOR: CRISTIAN CARDENAS & -->
 
 {% extends 'gravity_app/base.html' %}
-
+{% load i18n %}
 {% load static %}
 {% block title %}Gravity Colombia{% endblock %}
 
@@ -19,11 +19,11 @@
                     <img src="{% static 'gravity_app/images/Placeholder_Shirt.png' %}" alt="{{ producto.nombre }}">
                 {% endif %}
                 
-                <p style="font-style: italic;">Precio: ${{ producto.precio_formateado }}</p>
+                <p style="font-style: italic;">{% trans "Precio" %}: ${{ producto.precio_formateado }}</p>
                 <div class="button-container"> <!-- Container for the button -->
                     <form method="POST" action="{% url 'agregar_al_carrito' producto.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="add-to-cart-button">Agregar al carrito</button>
+                        <button type="submit" class="add-to-cart-button">{% trans "Agregar al carrito" %}</button>
                     </form>
                 </div>
             </div>

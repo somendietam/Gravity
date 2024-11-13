@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-12 18:02-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: .\gravity_app\models.py:12
+msgid "categoryName"
+msgstr ""
+
+#: .\gravity_app\models.py:23
+msgid "productName"
+msgstr ""
+
+#: .\gravity_app\models.py:24
+msgid "productPrice"
+msgstr ""
+
+#: .\gravity_app\models.py:25
+msgid "productDescription"
+msgstr ""
+
+#: .\gravity_app\models.py:26
+msgid "productStock"
+msgstr ""
+
+#: .\gravity_app\models.py:27
+msgid "productCategory"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\base.html:84
+msgid "BUSCADOR"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\base.html:94
+msgid "Categorias"
+msgstr "Categorias"
+
+#: .\gravity_app\templates\gravity_app\base.html:110
+msgid "Busqueda"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\base.html:115
+msgid "Cerrar"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\base.html:120
+#: .\gravity_app\templates\gravity_app\carrito.html:10
+msgid "Tu Carrito"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:15
+msgid "Resultados"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:19
+msgid "Termino de Busqueda"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:28
+#, fuzzy
+#| msgid "Categorias"
+msgid "Categoria"
+msgstr "Categorias"
+
+#: .\gravity_app\templates\gravity_app\buscar.html:39
+msgid "Filtrar"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:58
+msgid "Precio: Menor a Mayor"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:59
+msgid "Precio: Mayor a Menor"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:60
+msgid "Más vendidos"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\buscar.html:80
+#: .\gravity_app\templates\gravity_app\index.html:22
+msgid "Precio"
+msgstr "Precio"
+
+#: .\gravity_app\templates\gravity_app\buscar.html:84
+#: .\gravity_app\templates\gravity_app\index.html:26
+msgid "Agregar al carrito"
+msgstr "Agregar al carrito"
+
+#: .\gravity_app\templates\gravity_app\buscar.html:90
+msgid "No se encontraron productos"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\carrito.html:19
+msgid "Cantidad"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\carrito.html:23
+msgid "Eliminar"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\carrito.html:28
+msgid "Total"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\carrito.html:30
+msgid "No hay productos en tu carrito"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\login.html:28
+#: .\gravity_app\templates\gravity_app\login.html:34
+#: .\gravity_app\templates\gravity_app\register.html:27
+msgid "Iniciar sesión"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\login.html:32
+#: .\gravity_app\templates\gravity_app\register.html:22
+msgid "Nombre de usuario"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\login.html:33
+#: .\gravity_app\templates\gravity_app\register.html:24
+msgid "Contraseña"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\login.html:35
+msgid "¿No tienes cuenta?"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\login.html:35
+msgid "Registrate"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\register.html:18
+#: .\gravity_app\templates\gravity_app\register.html:25
+msgid "Registrarse"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\register.html:23
+msgid "Correo"
+msgstr ""
+
+#: .\gravity_app\templates\gravity_app\register.html:27
+msgid "¿Ya tienes una cuenta?"
+msgstr ""
+
+#~ msgid "Jogger"
+#~ msgstr "Jogger"
+
+#~ msgid "Camiseta"
+#~ msgstr "Camiseta"

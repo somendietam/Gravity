@@ -13,6 +13,54 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from .forms import ProductoForm, CategoriaForm
 from .reportes import PDFReporteGenerator, ExcelReporteGenerator
+from dotenv import load_dotenv
+from openai import OpenAI
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
+import os
+
+load_dotenv()
+
+apikey = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=apikey)
+
+def ai_clothes_suggestion(request):
+    if request.method == "POST":
+        user_suggestion = request.POST.get("sugerencia")
+
+        # Fetch products and format prompt (same as before)
+        products = Producto.objects.all()
+        product_list = "\n".join([f"- Nombre: {product.nombre} / Descripcion: {product.descripcion} / id: {product.id}" for product in products])
+        
+        prompt = (
+            f"Here is a list of available clothing items:\n{product_list}\n\n"
+            f"Based on the following suggestion by the user, generate an outfit with THE 'id' of the items selected separated by a ';'. Nothing else, no funny text or anything like that, just the numbers separated so I can format them. Example: 543;53156;854. If there are no good clothes to suggest just give a random outfit (Pants and top and accesories if there is any).\n"
+            f"User suggestion: {user_suggestion}"
+        )
+
+        # Call OpenAI API
+        completion = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        # Process AI's response and extract IDs
+        ai_suggestion = completion.choices[0].message.content
+        print("Outfit Sugerido:", ai_suggestion)
+
+        # Split AI's response by ';' to get individual product IDs
+        product_ids = ai_suggestion.split(';')
+        
+        # Build the query parameter string with IDs
+        ids_query = ",".join(product_ids)
+
+        buscar_url = f"{reverse('buscar_productos')}?ids={ids_query}&suggestion={user_suggestion}"
+        return redirect(buscar_url)
+
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 def index(request):
     productos = Producto.objects.all()
@@ -149,35 +197,48 @@ def ver_carrito(request):
 
 def buscar_productos(request):
     query = request.GET.get('q', '')
-    categoria_nombre = request.GET.get('categoria', '')  # Capture the category name from URL parameters
-    orden = request.GET.get('orden', None)  # Capture the sorting order from URL parameters
-    productos = Producto.objects.all()  # Start by fetching all products
+    categoria_nombre = request.GET.get('categoria', '')
+    orden = request.GET.get('orden', None)
+    
+    # Obtener el parámetro 'ids' de la URL
+    id_lista = request.GET.get('ids', '')
+    productos = Producto.objects.all()  # Iniciar con todos los productos
 
-    # Filter by category if provided
+    # Si 'ids' está presente, filtrar los productos
+    if id_lista:
+        # Separar los IDs por coma y convertirlos a enteros
+        id_lista = [int(id.strip()) for id in id_lista.split(',') if id.strip()]
+        print("ID_LISTA", id_lista)  # Imprimir la lista para depuración
+        productos = productos.filter(id__in=id_lista)  # Filtrar por los IDs
+
+    # Filtrar por categoría si se proporciona
     if categoria_nombre:
-        productos = productos.filter(categoria__nombre__iexact=categoria_nombre)  # Filter by exact category name
+        productos = productos.filter(categoria__nombre__iexact=categoria_nombre)
 
-    # Tokenize and filter by query if provided
+    # Filtrar por consulta si se proporciona
     if query:
-        tokens = query.split()  # Split the query into tokens
-        # Search for productos matching any of the tokens
-        productos = productos.filter(nombre__icontains=tokens[0])  # Start filtering with the first token
+        tokens = query.split()
+        productos = productos.filter(nombre__icontains=tokens[0])
         for token in tokens[1:]:
             productos = productos | Producto.objects.filter(nombre__icontains=token)
 
-    # Apply ordering based on the selected filter
+    # Aplicar ordenación según el filtro seleccionado
     if orden == 'precio_asc':
         productos = productos.order_by('precio')
     elif orden == 'precio_desc':
         productos = productos.order_by('-precio')
-    elif orden == 'stock_asc':  # Assuming less stock means more sold
+    elif orden == 'stock_asc':
         productos = productos.order_by('stock')
+
+    # Aquí pasamos el prompt de IA si está disponible
+    suggestion = request.GET.get('suggestion', '')  # Este es el prompt que usó el usuario
 
     context = {
         'productos': productos,
         'query': query,
-        'categoria_nombre': categoria_nombre,  # Pass the selected category name to the template
-        'orden': orden  # Pass the selected order to the template
+        'categoria_nombre': categoria_nombre,
+        'orden': orden,
+        'suggestion': suggestion,
     }
 
     return render(request, 'gravity_app/buscar.html', context)

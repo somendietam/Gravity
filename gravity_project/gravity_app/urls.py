@@ -21,4 +21,5 @@ urlpatterns = [
     path('crear_categoria/', views.crear_categoria, name='crear_categoria'),
     path('eliminar_producto/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
     path('api/productos-en-stock/', views.productos_en_stock, name='productos_en_stock'),
+    path('ai_clothes_suggestion/', views.ai_clothes_suggestion, name='ai_clothes_suggestion'),
 ]

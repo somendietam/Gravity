@@ -106,13 +106,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+# Enable localization
 USE_I18N = True
 
+# Enable time zone localization
+USE_L10N = True
 USE_TZ = True
+
+# Default language code
+LANGUAGE_CODE = 'en'
+
+# Add supported languages
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Spanish'),
+]
+
+# Define the path for translation files
+LOCALE_PATHS = [
+    BASE_DIR / 'gravity_app' / 'static' / 'locale',
+]
 
 
 # Static files (CSS, JavaScript, Images)

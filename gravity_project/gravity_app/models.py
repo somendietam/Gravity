@@ -4,14 +4,15 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
+from django.utils.translation import gettext_lazy as _
 from decimal import Decimal
 
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=20, verbose_name=_('categoryName'))
 
     def verCategoria(self):
-        return self.nombre
+        return _(self.nombre)
     
     @classmethod
     def listarCategorias(cls):
@@ -19,11 +20,11 @@ class Categoria(models.Model):
 
 class Producto(models.Model):
     id = models.AutoField(primary_key=True) 
-    nombre = models.CharField(max_length=100)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    descripcion = models.TextField()
-    stock = models.IntegerField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, verbose_name=_('productName'))
+    precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('productPrice'))
+    descripcion = models.TextField(verbose_name=_('productDescription'))
+    stock = models.IntegerField(verbose_name=_('productStock'))
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name=_('productCategory'))
     imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     def verDetallesProducto(self):

@@ -2,6 +2,7 @@
 
 {% extends 'gravity_app/base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% block title %}Gravity Colombia{% endblock %}
 
@@ -14,16 +15,16 @@
 
   <div class="container">
     <div class="left-column register">
-      <h1>Registrarse <i class="iconoir-redo-circle"></i></h1>
+      <h1>{% trans "Registrarse" %} <i class="iconoir-redo-circle"></i></h1>
 
       <form class="register-form" method="POST">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Nombre de usuario" required>
-        <input type="email" name="email" placeholder="Correo" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <button type="submit">Registrarse</button>
+        <input type="text" name="username" placeholder="{% trans 'Nombre de usuario' %}" required>
+        <input type="email" name="email" placeholder="{% trans 'Correo' %}" required>
+        <input type="password" name="password" placeholder="{% trans 'Contraseña' %}" required>
+        <button type="submit">{% trans "Registrarse" %}</button>
 
-        <span>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia Sesión</a></span>
+        <span>{% trans "¿Ya tienes una cuenta?" %} <a href="{% url 'login' %}">{% trans "Iniciar sesión" %}</a></span>
       </form>
     </div>
     <div class="right-column register">

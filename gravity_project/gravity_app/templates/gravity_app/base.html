@@ -1,5 +1,5 @@
 <!-- AUTOR: CRISTIAN CARDENAS -->
-
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -81,9 +81,8 @@
                     <!-- Formulario de búsqueda -->
                     <div id="search-form-container" class="search-form-container" style="display: none;">
                         <form method="GET" action="{% url 'buscar_productos' %}" class="search-form">
-                            <span> BUSCADOR </span>
-                            <input type="text" name="q" placeholder="Joggers, Camisetas, Cargos..."
-                                class="search-input">
+                            <span> {% trans "BUSCADOR" %} </span>
+                            <input type="text" name="q" placeholder="Joggers, Cargos..." class="search-input">
                             <button type="submit" class="search-button"><i class="iconoir-search"></i></button>
                             <button class="close-search-form"><i class="iconoir-xmark"></i></button>
                         </form>
@@ -91,12 +90,15 @@
 
                     <li class="dropdown">
                         <a class="header-content" href="#">
-                            <i class="iconoir-shirt"></i> <span> / Categorias</span>
+                            <i class="iconoir-shirt"></i> <span> / {% trans "Categorias" %}</span>
                         </a>
                         <ul class="dropdown-content">
                             {% for categoria in categorias %}
-                            <li><a href="{% url 'buscar_productos' %}?categoria={{ categoria.nombre }}">
-                                {{ categoria.nombre }}</a></li>
+                            <li>
+                                <a href="{% url 'buscar_productos' %}?categoria={{ categoria.nombre }}">
+                                    {% trans categoria.nombre %}
+                                </a>
+                            </li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -104,19 +106,25 @@
                     <!-- BUSQUEDA  -->
                     <li>
                         <a class="header-content search-toggle" href="javascript:void(0);">
-                            <i class="iconoir-search-engine"></i> <span> / Busqueda</span>
+                            <i class="iconoir-search-engine"></i> <span> / {% trans "Busqueda" %}</span>
                         </a>
                     </li>
                     <li class="close-search" style="display: none;">
                         <a class="header-content close-search-form" href="javascript:void(0);">
-                            <i class="iconoir-close-circle"></i> <span> / Cerrar</span>
+                            <i class="iconoir-close-circle"></i> <span> / {% trans "Cerrar" %}</span>
                         </a>
                     </li>
 
                     <li><a class="header-content" href="{% url 'tu_carrito' %}"><i class="iconoir-cart-alt"></i> <span>
-                                / Tu carrito ({{ request.user.cliente.carrito.numeroProductos }})</span></a></li>
+                                / {% trans "Tu Carrito" %} ({{ request.user.cliente.carrito.numeroProductos}})</span></a></li>
                     <li><a class="header-content" href="{% url 'login' %}"><i class="iconoir-user"></i>
                             <span></span></a></li>
+                    <li>
+                        <a class="header-content" href="javascript:void(0);" id="open-overlay" onclick="openOverlay()">
+                            <i class="iconoir-sparks"></i>
+                            <span></span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="mobile-menu">
                     <li><a class="header-content" href="#" id="menu-toggle"><i class="iconoir-list"></i> / Menú</a></li>
@@ -156,6 +164,88 @@
         BASE HTML
     </main>
     {% endblock %}
+
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <!-- Botón de cierre -->
+            <span id="closeBtn" class="close-btn">&times;</span>
+    
+            <!-- Formulario dentro del overlay -->
+            <div class="modal-content">
+                <h2 style="text-align: center; color: white;">Pídele una sugerencia de ropa a la IA</h2>
+                <form method="POST" action="{% url 'ai_clothes_suggestion' %}">
+                    {% csrf_token %}
+                    <div class="input-container">
+                        <textarea name="sugerencia" placeholder="Ejemplo: Ropa para una fiesta con temática de los 90" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
+    
+        // Function to open the overlay
+        function openOverlay() {
+            overlay.style.display = 'flex'; // Show the overlay
+        }
+    
+        // Function to close the overlay
+        function closeOverlay() {
+            overlay.style.display = 'none'; // Hide the overlay
+        }
+    
+        // Close overlay when the close button is clicked
+        closeBtn.addEventListener('click', closeOverlay);
+    
+        // Close overlay when clicking on the overlay (but not the modal content)
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) {
+                closeOverlay();
+            }
+        });
+    
+        // Handle the form submission for AI suggestion
+        document.getElementById("ai-suggestion-form").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent default form submission
+            const suggestion = document.getElementById("suggestion-input").value;
+    
+            // Obtener los parámetros de búsqueda actuales desde la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q') || '';
+            const categoria = urlParams.get('categoria') || '';
+            const orden = urlParams.get('orden') || '';
+            const ids = urlParams.get('ids') || ''; // IDs generados por la IA
+    
+            // Enviar los datos de la solicitud
+            fetch("{% url 'ai_clothes_suggestion' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",  // Include CSRF token
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    suggestion: suggestion,
+                    query: query,
+                    categoria: categoria,
+                    orden: orden,
+                    ids: ids
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.status);  // Log the response or handle success
+                // Aquí puedes agregar más lógica para manejar la respuesta (e.g., mostrar sugerencias)
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+
 </body>
 
 </html>
